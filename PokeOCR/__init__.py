@@ -58,10 +58,10 @@ class PokeOCR:
 	
 	def __crop_percentage(self, box):
 		return self.update_pic.crop((
-			self.x * self.__BOXES["{0}_tl_x".format(box)],
-			self.y * self.__BOXES["{0}_tl_y".format(box)],
-			self.x * self.__BOXES["{0}_br_x".format(box)],
-			self.y * self.__BOXES["{0}_br_y".format(box)]
+			int(self.x * self.__BOXES["{0}_tl_x".format(box)]),
+			int(self.y * self.__BOXES["{0}_tl_y".format(box)]),
+			int(self.x * self.__BOXES["{0}_br_x".format(box)]),
+			int(self.y * self.__BOXES["{0}_br_y".format(box)])
 		))
 	
 	def __guess_text(self, pic):
