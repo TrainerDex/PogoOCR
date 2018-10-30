@@ -9,12 +9,13 @@ class Trainer():
         self.image = self.cvimage.image
         
     def get_text(self):
-        self.text = self.cvimage.text_detection()
+        self.cvimage.get_text()
+        self.text = self.cvimage.text_found
     
     @property
     def username(self):
-        return re.search('([A-Za-z0-9]+)\\n\& ([^\\n]+)', self.text[0].description).group(1)
+        return re.search('([A-Za-z0-9]+)\\n(?:\&|et|con|e) ?([^\\n]+)', self.text[0].description).group(1)
         
     @property
     def buddy_name(self):
-        return re.search('([A-Za-z0-9]+)\\n\& ([^\\n]+)', self.text[0].description).group(2)
+        return re.search('([A-Za-z0-9]+)\\n(?:\&|et|con|e) ?([^\\n]+)', self.text[0].description).group(2)
