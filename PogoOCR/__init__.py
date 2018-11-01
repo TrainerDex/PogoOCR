@@ -16,4 +16,4 @@ __copyright__ = 'Copyright 2018 TrianerDex'
 __version__ = '0.0.0'
 
 from .cloudvision import *
-from .types import Trainer
+from .types import *

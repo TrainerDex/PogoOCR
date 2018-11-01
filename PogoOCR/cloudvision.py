@@ -3,7 +3,7 @@ from PIL import Image
 from google.cloud import vision
 from google.cloud.vision import types
 
-class Image():
+class Image:
     
     def __init__(self, image_uri):
         self.google = vision.ImageAnnotatorClient()
