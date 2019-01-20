@@ -1,11 +1,12 @@
 """
-PogoOCR
+PogoOCR for TL40
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A Python tool for running OCR on Pokemon Screenshots using Google Cloud Vision
+Forked for TL40 specific purposes
 
 :copyright: (c) 2018 TrainerDex
-:licence: Undecided, ask permission before using.
+:licence: GNU GENERAL PUBLIC LICENSE 3.0
 
 """
 

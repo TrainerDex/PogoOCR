@@ -1,12 +1,17 @@
 import io
-from PIL import Image
+from django.conf import settings
 from google.cloud import vision
 from google.cloud.vision import types
+from google.auth.credentials import Credentials
+from PIL import Image
 
 class Image:
+    """
+    Only to be ran from inside the Django environment
+    """
     
     def __init__(self, image_uri):
-        self.google = vision.ImageAnnotatorClient()
+        self.google = vision.ImageAnnotatorClient(credentials=Credentials(token=settings.GOOGLE_API_TOKEN))
         self.image_uri = image_uri
     
     @property
