@@ -2,8 +2,11 @@ import io
 from django.conf import settings
 from google.cloud import vision
 from google.cloud.vision import types
-from google.auth.credentials import Credentials
+from google.oauth2 import service_account
 from PIL import Image
+
+credentials = service_account.Credentials.from_service_account_file(
+    settings.GOOGLE_SERVICE_FILE)
 
 class Image:
     """
@@ -11,7 +14,7 @@ class Image:
     """
     
     def __init__(self, image_uri):
-        self.google = vision.ImageAnnotatorClient(credentials=Credentials(token=settings.GOOGLE_API_TOKEN))
+        self.google = vision.ImageAnnotatorClient(credentials=credentials)
         self.image_uri = image_uri
     
     @property
