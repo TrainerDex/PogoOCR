@@ -21,7 +21,8 @@ class ProfileBottom(Image):
     @property
     def total_xp(self):
         re_pattern = r'(?:(?:Total\s?XP)|(?:TOTAL\s?XP)|(?:Total\s?de\s?PX)|(?:Gesamt-EP)|(?:Totale\s?PE)|(?:總XP)|(?:Total\s?de\s?PE))\s?(?::|：)?\s?([\d,.\s]+)'
-        return re.search(re_pattern, self.text_found[0].description, re.IGNORECASE).group(1)
+        text = re.search(re_pattern, self.text_found[0].description, re.IGNORECASE).group(1)
+        return int(text.strip().replace(',', '').replace('.', '').replace(' ', ''))
 
 class Badge(Image):
     
