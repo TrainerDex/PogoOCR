@@ -23,6 +23,7 @@ setuptools.setup(
 	url="https://github.com/TrainerDex/PogoOCR",
 	packages=setuptools.find_packages(),
 	install_requires=requirements(),
+	python_requires='>=3.6'
 	classifiers=[
 		"Programming Language :: Python :: 3",
 		"License :: OSI Approved :: MIT License",
