@@ -102,4 +102,4 @@ ENV/
 
 test\.py
 
-img/
+key.json

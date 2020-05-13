@@ -3,7 +3,6 @@ PogoOCR
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A Python tool for running OCR on Pokemon Screenshots using Google Cloud Vision
-Forked for TL40 specific purposes
 
 :copyright: (c) 2020 TrainerDex
 :licence: GNU GENERAL PUBLIC LICENSE 3.0
