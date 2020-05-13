@@ -17,4 +17,4 @@ __copyright__ = '2018 TrainerDex'
 __version__ = '0.1.0'
 
 from .cloudvision import Image
-from .types import ProfileTop, ProfileBottom, Badge, Pokédex
+from .types import ProfileSelf, Badge, Pokédex
