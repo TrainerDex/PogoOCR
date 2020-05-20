@@ -13,7 +13,7 @@ __title__ = 'PogoOCR'
 __author__ = 'JayTurnr'
 __licence__ = 'GNU GENERAL PUBLIC LICENSE 3.0'
 __copyright__ = '2020 TrainerDex'
-__version__ = '0.2.0'
+__version__ = '0.3.0'
 
 from .cloudvision import Image
 from .types import ProfileSelf, Badge, Pokédex
