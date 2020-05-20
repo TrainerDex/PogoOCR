@@ -10,7 +10,7 @@ def version():
 
 def requirements():
 	with open('requirements.txt') as f:
-		return f.splitlines()
+		return f.read().splitlines()
 
 setuptools.setup(
 	name="PogoOCR",
