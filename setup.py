@@ -1,16 +1,16 @@
+import setuptools
 import re
-from setuptools import setup
 
-with open('README.md') as f:
+with open('README.md', 'r') as f:
 	readme = f.read()
 
-with open('PogoOCR/__init__.py') as f:
+with open('PogoOCR/__init__.py', 'r') as f:
 	version = re.search(r'__version__\s*=\s*[\'"]([^\'"]*)[\'"]', f.read()).group(1)
 
-with open('requirements.txt') as f:
-	requirements = f.splitlines()
+with open('requirements.txt', 'r') as f:
+	requirements = f.read().splitlines()
 
-setup(
+setuptools.setup(
 	name="PogoOCR",
 	version=version,
 	author="Jay Turner",

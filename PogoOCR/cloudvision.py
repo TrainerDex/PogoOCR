@@ -18,5 +18,17 @@ class Image:
 	
 	def get_text(self):
 		print("Requesting TEXT_DETECTION from Google Cloud API. This will cost us 0.0015 USD.")
-		response = self.google.text_detection(image=self.image, retry=5)
-		self.text_found = response.text_annotations
+		attempts = 0
+		while attempts < 5:
+			attempts += 1
+			response = self.google.text_detection(image=self.image)
+			try:
+				response.text_annotations[0]
+			except IndexError:
+				pass
+			else:
+				self.text_found = response.text_annotations
+				break
+		
+		if attempts == 5:
+			raise Exception(response.text_annotations)
