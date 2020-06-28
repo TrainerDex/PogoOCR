@@ -13,74 +13,74 @@ class ProfileSelf(Image):
 		# TODO: Look into if I can package .json files with pypi projects.
 		self.pattern_lookups = {
 			'fr': {
-				'travel_km' : r'Distance\smarchée\n((?:\d{1,3}\s)?\d{1,3},\d{1,2})\skm',
-				'capture_total' : r'Pok[ée]mon\sattrap[ée]s\n((?:\s?\d{1,3})+)',
-				'pokestops_visited' : r'Pok[ée]Stops visit[ée]s\n((?:\s?\d{1,3})+)',
-				'total_xp' : r'Total\sde\sPX\s?[;:：]?\n((?:\s?\d{1,3})+)',
+				'travel_km' : r'Distance\smarchée\n((?:\d{1,3}[,.\s])?\d{1,3}[,.]\d{1,2})\skm',
+				'capture_total' : r'Pok[ée]mon\sattrap[ée]s\n((?:[,.\s]?\d{1,3})+)',
+				'pokestops_visited' : r'Pok[ée]Stops visit[ée]s\n((?:[,.\s]?\d{1,3})+)',
+				'total_xp' : r'Total\sde\sPX\s?[;:：]?\n((?:[,.\s]?\d{1,3})+)',
 				'start_date' : r'Date\sde\sd[ée]but\n(\d{2}\/\d{2}\/\d{4})',
 				'start_date_format' : '%d/%m/%Y',
 				},
 			'de': {
-				'travel_km' : r'Gelaufene\sDistanz\n((?:\d{1,3}\.)?\d{1,3},\d{1,2})\skm',
-				'capture_total' : r'Gefangene Pok[ée]mon\n((?:\.?\d{1,3})+)',
-				'pokestops_visited' : r'(?:Besuchte\sPok[ée]Stops[;:：]?|Pok[ée]Stops\sVisited[;:：]?)\n((?:\.?\d{1,3})+)', # Found a mismatch between the ZeChrales translation files, could indicate a recent string change
-				'total_xp' : r'Gesamt-EP\n((?:\.?\d{1,3})+)',
+				'travel_km' : r'Gelaufene\sDistanz\n((?:\d{1,3}[,.\s])?\d{1,3}[,.]\d{1,2})\skm',
+				'capture_total' : r'Gefangene Pok[ée]mon\n((?:[,.\s]?\d{1,3})+)',
+				'pokestops_visited' : r'(?:Besuchte\sPok[ée]Stops[;:：]?|Pok[ée]Stops\sVisited[;:：]?)\n((?:[,.\s]?\d{1,3})+)', # Found a mismatch between the ZeChrales translation files, could indicate a recent string change
+				'total_xp' : r'Gesamt-EP\n((?:[,.\s]?\d{1,3})+)',
 				'start_date' : r'Startdatum\n(\d{2}.\d{2}.\d{4})',
 				'start_date_format' : '%d.%m.%Y',
 				},
 			'it': {
-				'travel_km' : r'Distanza\spercorsa\n((?:\d{1,3}\.)?\d{1,3},\d{1,2})\skm',
-				'capture_total' : r'Pok[ée]mon catturati\n((?:\.?\d{1,3})+)',
-				'pokestops_visited' : r'(?:Pok[ée]stop\svisitati[;:：]?|Pok[ée]Stops\sVisited[;:：]?)\n((?:\.?\d{1,3})+)', # Found a mismatch between the ZeChrales translation files, could indicate a recent string change
-				'total_xp' : r'Totale\sPE\n((?:\.?\d{1,3})+)',
+				'travel_km' : r'Distanza\spercorsa\n((?:\d{1,3}[,.\s])?\d{1,3}[,.]\d{1,2})\skm',
+				'capture_total' : r'Pok[ée]mon catturati\n((?:[,.\s]?\d{1,3})+)',
+				'pokestops_visited' : r'(?:Pok[ée]stop\svisitati[;:：]?|Pok[ée]Stops\sVisited[;:：]?)\n((?:[,.\s]?\d{1,3})+)', # Found a mismatch between the ZeChrales translation files, could indicate a recent string change
+				'total_xp' : r'Totale\sPE\n((?:[,.\s]?\d{1,3})+)',
 				'start_date' : r'Data\sdi\sinizio\n(\d{2}\/\d{2}\/\d{4})',
 				'start_date_format' : '%d/%m/%Y',
 				},
 			'ja': {
-				'travel_km' : r'歩いた距離\n((?:\d{1,3},)?\d{1,3}\.\d{1,2})\skm',
-				'capture_total' : r'つかまえたポケモン\n((?:,?\d{1,3})+)',
-				'pokestops_visited' : r'訪れたポケストップ\n((?:,?\d{1,3})+)',
-				'total_xp' : r'(?:トータルXP|TOTAL XP)\n((?:,?\d{1,3})+)', # Found a mismatch between the ZeChrales translation files, could indicate a recent string change
+				'travel_km' : r'歩いた距離\n((?:\d{1,3}[,.\s])?\d{1,3}[,.]\d{1,2})\skm',
+				'capture_total' : r'つかまえたポケモン\n((?:[,.\s]?\d{1,3})+)',
+				'pokestops_visited' : r'訪れたポケストップ\n((?:[,.\s]?\d{1,3})+)',
+				'total_xp' : r'(?:トータルXP|TOTAL XP)\n((?:[,.\s]?\d{1,3})+)', # Found a mismatch between the ZeChrales translation files, could indicate a recent string change
 				'start_date' : r'始めた日\n(\d{4}\/\d{2}\/\d{2})',
 				'start_date_format' : '%Y/%m/%d',
 				},
 			'ko': {
-				'travel_km' : r'걸은\s거리\n((?:\d{1,3},)?\d{1,3}\.\d{1,2})\skm',
-				'capture_total' : r'잡은\s포켓몬\n((?:,?\d{1,3})+)',
-				'pokestops_visited' : r'(?:방문한\s포켓스톱|Pok[ée]Stops\sVisited[;:：]?)\n((?:,?\d{1,3})+)', # Found a mismatch between the ZeChrales translation files, could indicate a recent string change
-				'total_xp' : r'Total XP\n((?:,?\d{1,3})+)',
+				'travel_km' : r'걸은\s거리\n((?:\d{1,3}[,.\s])?\d{1,3}[,.]\d{1,2})\skm',
+				'capture_total' : r'잡은\s포켓몬\n((?:[,.\s]?\d{1,3})+)',
+				'pokestops_visited' : r'(?:방문한\s포켓스톱|Pok[ée]Stops\sVisited[;:：]?)\n((?:[,.\s]?\d{1,3})+)', # Found a mismatch between the ZeChrales translation files, could indicate a recent string change
+				'total_xp' : r'Total XP\n((?:[,.\s]?\d{1,3})+)',
 				'start_date' : r'시작한\s날\n(\d{4}\/\d{2}\/\d{2})',
 				'start_date_format' : '%Y/%m/%d',
 				},
 			'es': {
-				'travel_km' : r'Distancia\scaminando\n((?:\d{1,3}\.)?\d{1,3},\d{1,2})\skm',
-				'capture_total' : r'Pok[ée]mon atrapados\n((?:\.?\d{1,3})+)',
-				'pokestops_visited' : r'(?:Pok[ée]paradas\svisitadas[;:：]?|Pok[ée]Stops\sVisited[;:：]?)\n((?:\.?\d{1,3})+)', # Found a mismatch between the ZeChrales translation files, could indicate a recent string change
-				'total_xp' : r'Total\sde\sPX\n((?:\.?\d{1,3})+)',
+				'travel_km' : r'Distancia\scaminando\n((?:\d{1,3}[,.\s])?\d{1,3}[,.]\d{1,2})\skm',
+				'capture_total' : r'Pok[ée]mon atrapados\n((?:[,.\s]?\d{1,3})+)',
+				'pokestops_visited' : r'(?:Pok[ée]paradas\svisitadas[;:：]?|Pok[ée]Stops\sVisited[;:：]?)\n((?:[,.\s]?\d{1,3})+)', # Found a mismatch between the ZeChrales translation files, could indicate a recent string change
+				'total_xp' : r'Total\sde\sPX\n((?:[,.\s]?\d{1,3})+)',
 				'start_date' : r'Fecha\sde\sinicio\n(\d{2}\/\d{2}\/\d{4})',
 				'start_date_format' : '%d/%m/%Y',
 				},
 			'zh_hant': {
-				'travel_km' : r'步行距離\n((?:\d{1,3},)?\d{1,3}\.\d{1,2})\skm',
-				'capture_total' : r'捉到的寶可夢\n((?:,?\d{1,3})+)',
-				'pokestops_visited' : r'(?:拜訪過的寶可補給站\s?[;:：]?|Pok[ée]Stops\sVisited[;:：]?)\n((?:,?\d{1,3})+)', # Found a mismatch between the ZeChrales translation files, could indicate a recent string change
-				'total_xp' : r'總XP\n((?:,?\d{1,3})+)',
+				'travel_km' : r'步行距離\n((?:\d{1,3}[,.\s])?\d{1,3}[,.]\d{1,2})\skm',
+				'capture_total' : r'捉到的寶可夢\n((?:[,.\s]?\d{1,3})+)',
+				'pokestops_visited' : r'(?:拜訪過的寶可補給站\s?[;:：]?|Pok[ée]Stops\sVisited[;:：]?)\n((?:[,.\s]?\d{1,3})+)', # Found a mismatch between the ZeChrales translation files, could indicate a recent string change
+				'total_xp' : r'總XP\n((?:[,.\s]?\d{1,3})+)',
 				'start_date' : r'開始日\n(\d{4}\/\d{1,2}\/\d{1,2})',
 				'start_date_format' : '%Y/%m/%d',
 				},
 			'en': {
-				'travel_km' : r'Distance Walked\n((?:\d{1,3},)?\d{1,3}\.\d{1,2})\skm',
-				'capture_total' : r'Pok[ée]mon\sCaught\n((?:,?\d{1,3})+)',
-				'pokestops_visited' : r'Pok[ée]Stops\sVisited[;:：]?\n((?:,?\d{1,3})+)',
-				'total_xp' : r'Total\sXP[;:：]?\n((?:,?\d{1,3})+)',
+				'travel_km' : r'Distance Walked\n((?:\d{1,3}[,.\s])?\d{1,3}[,.]\d{1,2})\skm',
+				'capture_total' : r'Pok[ée]mon\sCaught\n((?:[,.\s]?\d{1,3})+)',
+				'pokestops_visited' : r'Pok[ée]Stops\sVisited[;:：]?\n((?:[,.\s]?\d{1,3})+)',
+				'total_xp' : r'Total\sXP[;:：]?\n((?:[,.\s]?\d{1,3})+)',
 				'start_date' : r'Start\sDate[;:：]?\n(\d{1,2}\/\d{1,2}\/\d{4})',
 				'start_date_format' : '%m/%d/%Y',
 				},
 			'pt_br': {
-				'travel_km' : r'Dist[âa]ncia\sa\sp[ée]\n((?:\d{1,3}\.)?\d{1,3},\d{1,2})\skm',
-				'capture_total' : r'Pok[ée]mon pegos\n((?:\.?\d{1,3})+)',
-				'pokestops_visited' : r'(?:Pok[ée]paradas\svisitadas[;:：]?|Pok[ée]Stops\sVisited[;:：]?)\n((?:\.?\d{1,3})+)', # Found a mismatch between the ZeChrales translation files, could indicate a recent string change
-				'total_xp' : r'Total\sde\sPE[;:：]?\n((?:\.?\d{1,3})+)',
+				'travel_km' : r'Dist[âa]ncia\sa\sp[ée]\n((?:\d{1,3}[,.\s])?\d{1,3}[,.]\d{1,2})\skm',
+				'capture_total' : r'Pok[ée]mon pegos\n((?:[,.\s]?\d{1,3})+)',
+				'pokestops_visited' : r'(?:Pok[ée]paradas\svisitadas[;:：]?|Pok[ée]Stops\sVisited[;:：]?)\n((?:[,.\s]?\d{1,3})+)', # Found a mismatch between the ZeChrales translation files, could indicate a recent string change
+				'total_xp' : r'Total\sde\sPE[;:：]?\n((?:[,.\s]?\d{1,3})+)',
 				'start_date' : r'Data\sde\sin[íi]cio\n(\d{1,2}\/\d{1,2}\/\d{4})',
 				'start_date_format' : '%d/%m/%Y',
 				},
