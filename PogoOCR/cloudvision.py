@@ -18,6 +18,5 @@ class Image:
 	
 	def get_text(self):
 		print("Requesting TEXT_DETECTION from Google Cloud API. This will cost us 0.0015 USD.")
-		response = self.google.text_detection(image=self.image)
+		response = self.google.text_detection(image=self.image, retry=5)
 		self.text_found = response.text_annotations
-		

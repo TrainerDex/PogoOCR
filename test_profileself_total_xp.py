@@ -19,6 +19,7 @@ options = [
 	('pt_br','https://cdn.discordapp.com/attachments/339450026076012544/712597570421260408/Screenshot_20200520-102802.jpg',68315780),
 	('edge_of_screen','https://cdn.discordapp.com/attachments/329751396222238722/711468207667544095/Screenshot_20200517-074014.png',5421143),
 	('xp_total_xp_issue','https://cdn.discordapp.com/attachments/329751396222238722/711961584230203402/Screenshot_20200518-162012_Pokmon_GO.jpg',9931565), # This is the issue being fixed, leaving this test incase I break it in future
+	('dutch_xp', 'https://cdn.discordapp.com/attachments/370708840850653184/726727557453447238/Screenshot_20200628-111544_Pokmon_GO.jpg', 224399847)
 ]
 
 @pytest.mark.parametrize("test_name,input,expected", options)
