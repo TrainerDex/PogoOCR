@@ -22,7 +22,7 @@ class Image:
             raise AttributeError("Please define either image_uri or image_content")
 
     def get_text(self) -> None:
-        print("Requesting TEXT_DETECTION from Google Cloud API. This will cost us 0.0015 USD.")
+        log.info("Requesting TEXT_DETECTION from Google Cloud API. This will cost us 0.0015 USD.")
         attempts = 0
         while attempts < 5:
             attempts += 1
