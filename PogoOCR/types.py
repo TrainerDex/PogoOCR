@@ -1,20 +1,26 @@
 import datetime
 import decimal
 import json
+import logging
 import os
 import re
+from string import digits
 from typing import Optional
 
-from dateutil.parser import parse
+from babel.numbers import NumberFormatError
+from dateutil.parser import parse as parse_date
 
 from .cloudvision import Image
+from .numbers import parse_decimal, parse_number
+
+log: logging.Logger = logging.getLogger(__name__)
 
 
 class ProfileSelf(Image):
     def __init__(self, service_file, image_content=None, image_uri=None) -> None:
         super().__init__(service_file, image_content=image_content, image_uri=image_uri)
         self.locale = "en"
-        self.number_locale = ",."
+        self.numeric_locale = {}
         with open(os.path.join(os.path.dirname(__file__), "pattern_lookups.json"), "r") as f:
             self.pattern_lookups = json.load(f)
 
@@ -24,7 +30,7 @@ class ProfileSelf(Image):
         if force or not hasattr(self, "text_found"):
             super().get_text()
 
-        # Try to work out language:
+        # Try to work out locale:
         locale_lookup = [
             ("fr", r"(?:(?:Activit[ée]s\stotales)|(?:PROGR[ÈE]S\sDE\sLA\sSEMAINE))"),
             ("de", r"(?:(?:Aktivit[äa]tsstatistik)|(?:W[ÖO]CHENTLICHER\sFORTSCHRITT))"),
@@ -42,16 +48,43 @@ class ProfileSelf(Image):
                 self.locale = locale
                 break
 
-        # Try to work out number format
-        number_locale_lookup = [
-            (",.", r"\d,(?:\d{3})(\.\d)?"),
-            (".,", r"\d\.(?:\d{3})(,\d)?"),
-            (" ,", r"\d\s(?:\d{3})(,\d)?"),
-        ]
-        for number_locale, pattern in number_locale_lookup:
-            if re.search(pattern, self.text_found[0].description):
-                self.number_locale = number_locale
-                break
+        # Since the only stat that is a decimal is travel_km, we will check that.
+        try:
+            travel_km = (
+                re.search(
+                    self.pattern_lookups[self.locale]["travel_km"],
+                    self.text_found[0].description,
+                    re.IGNORECASE,
+                )[1]
+                .replace("km", "")
+                .strip()
+                .replace(" ", "\xa0")
+            )
+        except (decimal.InvalidOperation, TypeError):
+            pass
+        else:
+            translated = travel_km.translate(str.maketrans("", "", digits))
+            self.numeric_locale["decimal"] = translated[-1]
+            if len(translated) > 1:
+                self.numeric_locale["group"] = translated[-2]
+
+        # If travel_km wasn't big enough to get the group for numeric_locale, try total_xp
+        try:
+            total_xp = (
+                re.search(
+                    self.pattern_lookups[self.locale]["total_xp"],
+                    self.text_found[0].description,
+                    re.IGNORECASE,
+                )[1]
+                .strip()
+                .replace(" ", "\xa0")
+            )
+        except (ValueError, TypeError):
+            # Assume English
+            self.numeric_locale["group"] = ","
+        else:
+            translated = total_xp.translate(str.maketrans("", "", digits))
+            self.numeric_locale["group"] = translated[0]
 
     @property
     def username(self) -> Optional[str]:
@@ -59,7 +92,8 @@ class ProfileSelf(Image):
             return re.search(
                 r"([A-Za-z0-9]+)\n(?:\&|et|con|e) ?(.+)", self.text_found[0].description
             )[1]
-        except TypeError:
+        except TypeError as e:
+            log.exception("username failed to return")
             return None
 
     @property
@@ -68,7 +102,8 @@ class ProfileSelf(Image):
             return re.search(
                 r"([A-Za-z0-9]+)\n(?:\&|et|con|e) ?(.+)", self.text_found[0].description
             )[2]
-        except TypeError:
+        except TypeError as e:
+            log.exception("buddy_name failed to return")
             return None
 
     @property
@@ -80,64 +115,51 @@ class ProfileSelf(Image):
                     self.text_found[0].description,
                     re.IGNORECASE,
                 )[1]
-                .replace(self.number_locale[0], "")
-                .replace(self.number_locale[1], ".")
                 .replace("km", "")
                 .strip()
             )
-            return decimal.Decimal(result)
-        except (decimal.InvalidOperation, TypeError):
+            return parse_decimal(result, locale=self.numeric_locale)
+        except (NumberFormatError, TypeError) as e:
+            log.exception("travel_km failed to return")
             return None
 
     @property
     def capture_total(self) -> Optional[int]:
         try:
-            result = (
-                re.search(
-                    self.pattern_lookups[self.locale]["capture_total"],
-                    self.text_found[0].description,
-                    re.IGNORECASE,
-                )[1]
-                .replace(self.number_locale[0], "")
-                .replace(self.number_locale[1], ".")
-                .strip()
-            )
-            return int(result)
-        except (ValueError, TypeError):
+            result = re.search(
+                self.pattern_lookups[self.locale]["capture_total"],
+                self.text_found[0].description,
+                re.IGNORECASE,
+            )[1].strip()
+            return parse_number(result, locale=self.numeric_locale)
+        except (NumberFormatError, TypeError) as e:
+            log.exception("capture_total failed to return")
             return None
 
     @property
     def pokestops_visited(self) -> Optional[int]:
         try:
-            result = (
-                re.search(
-                    self.pattern_lookups[self.locale]["pokestops_visited"],
-                    self.text_found[0].description,
-                    re.IGNORECASE,
-                )[1]
-                .replace(self.number_locale[0], "")
-                .replace(self.number_locale[1], ".")
-                .strip()
-            )
-            return int(result)
-        except (ValueError, TypeError):
+            result = re.search(
+                self.pattern_lookups[self.locale]["pokestops_visited"],
+                self.text_found[0].description,
+                re.IGNORECASE,
+            )[1].strip()
+            return parse_number(result, locale=self.numeric_locale)
+        except (NumberFormatError, TypeError) as e:
+            log.exception("pokestops_visited failed to return")
             return None
 
     @property
     def total_xp(self) -> Optional[int]:
         try:
-            result = (
-                re.search(
-                    self.pattern_lookups[self.locale]["total_xp"],
-                    self.text_found[0].description,
-                    re.IGNORECASE,
-                )[1]
-                .replace(self.number_locale[0], "")
-                .replace(self.number_locale[1], ".")
-                .strip()
-            )
-            return int(result)
-        except (ValueError, TypeError):
+            result = re.search(
+                self.pattern_lookups[self.locale]["total_xp"],
+                self.text_found[0].description,
+                re.IGNORECASE,
+            )[1].strip()
+            return parse_number(result, locale=self.numeric_locale)
+        except (NumberFormatError, TypeError) as e:
+            log.exception("total_xp failed to return")
             return None
 
     @property
@@ -148,8 +170,9 @@ class ProfileSelf(Image):
                 self.text_found[0].description,
                 re.IGNORECASE,
             )[1]
-            return parse(result)
-        except (ValueError, OverflowError, TypeError):
+            return parse_date(result).date()
+        except (ValueError, OverflowError, TypeError) as e:
+            log.exception("start_date failed to return")
             return None
 
     def find_stats(self):

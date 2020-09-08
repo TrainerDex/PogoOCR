@@ -1,6 +1,10 @@
+import logging
+
 from google.cloud import vision
 from google.cloud.vision import types
 from google.oauth2 import service_account
+
+log: logging.Logger = logging.getLogger(__name__)
 
 
 class Image:
