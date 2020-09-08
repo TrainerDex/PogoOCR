@@ -7,12 +7,4 @@ Installation
 ------------
 ::
 
-    pip install pokeocr
-
-Update Notes
-------------
-
-
-1.0.0
-^^^^^
-* Initial release
+    pip install pogoocr==0.0.0
