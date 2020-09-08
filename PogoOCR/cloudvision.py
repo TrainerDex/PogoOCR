@@ -6,9 +6,7 @@ from google.oauth2 import service_account
 class Image:
     def __init__(self, service_file, image_content=None, image_uri=None) -> None:
         self.google = vision.ImageAnnotatorClient(
-            credentials=service_account.Credentials.from_service_account_file(
-                service_file
-            )
+            credentials=service_account.Credentials.from_service_account_file(service_file)
         )
 
         self.image = types.Image()
@@ -20,9 +18,7 @@ class Image:
             raise AttributeError("Please define either image_uri or image_content")
 
     def get_text(self) -> None:
-        print(
-            "Requesting TEXT_DETECTION from Google Cloud API. This will cost us 0.0015 USD."
-        )
+        print("Requesting TEXT_DETECTION from Google Cloud API. This will cost us 0.0015 USD.")
         attempts = 0
         while attempts < 5:
             attempts += 1

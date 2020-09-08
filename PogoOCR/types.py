@@ -1,7 +1,8 @@
+import datetime
+import decimal
 import json
+import os
 import re
-import datetime.date
-import decimal.Decimal
 from typing import Optional
 
 from dateutil.parser import parse
@@ -14,7 +15,7 @@ class ProfileSelf(Image):
         super().__init__(service_file, image_content=image_content, image_uri=image_uri)
         self.locale = "en"
         self.number_locale = ",."
-        with open("pattern_lookups.json", "r") as f:
+        with open(os.path.join(os.path.dirname(__file__), "pattern_lookups.json"), "r") as f:
             self.pattern_lookups = json.load(f)
 
     def get_text(self, force: Optional[bool] = False) -> None:
