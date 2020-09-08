@@ -214,7 +214,7 @@ options = [
             "numeric_locale": {"group": ","},
             "username": None,
             "travel_km": None,
-            "capture_total": 6062,
+            "capture_total": 60062,
             "pokestops_visited": 44890,
             "total_xp": 75751423,
         },
