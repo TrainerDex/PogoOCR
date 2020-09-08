@@ -7,7 +7,7 @@ import re
 from string import digits
 from typing import Optional
 
-from babel.numbers import NumberFormatError
+import babel
 from dateutil.parser import parse as parse_date
 
 from .cloudvision import Image
@@ -19,7 +19,7 @@ log: logging.Logger = logging.getLogger(__name__)
 class ProfileSelf(Image):
     def __init__(self, service_file, image_content=None, image_uri=None) -> None:
         super().__init__(service_file, image_content=image_content, image_uri=image_uri)
-        self.locale = "en"
+        self.locale = babel.Locale.parse("en")
         self.numeric_locale = {}
         with open(os.path.join(os.path.dirname(__file__), "pattern_lookups.json"), "r") as f:
             self.pattern_lookups = json.load(f)
@@ -32,16 +32,25 @@ class ProfileSelf(Image):
 
         # Try to work out locale:
         locale_lookup = [
-            ("fr", r"(?:(?:Activit[ée]s\stotales)|(?:PROGR[ÈE]S\sDE\sLA\sSEMAINE))"),
-            ("de", r"(?:(?:Aktivit[äa]tsstatistik)|(?:W[ÖO]CHENTLICHER\sFORTSCHRITT))"),
-            ("it", r"(?:(?:Riepilogo\sattivit[àa])|(?:PROGRESSI\sSETTIMANALI))"),
-            ("ja", r"(?:(?:アクティビティ)|(?:ウィークリー))"),
-            ("ko", r"(?:(?:활동)|(?:주간\s피트니스))"),
-            ("es", r"(?:(?:Total\sde\sactividades)|(?:PROGRESO\sSEMANAL))"),
-            ("zh", r"(?:(?:活動紀錄)|(?:本週成果))"),
-            ("en", r"(?:(?:Total\sActivity)|(?:WEEKLY\sPROGRESS))"),
-            ("pt", r"(?:(?:Total\sde\satividades)|(?:PROGRESSO\sSEMANAL))"),
-            ("th", r"(?:(?:กิจกรรมทั้งหมด)|(?:ความคืบหน้าประจำสัปดาห์))"),
+            (
+                babel.Locale.parse("fr"),
+                r"(?:(?:Activit[ée]s\stotales)|(?:PROGR[ÈE]S\sDE\sLA\sSEMAINE))",
+            ),
+            (
+                babel.Locale.parse("de"),
+                r"(?:(?:Aktivit[äa]tsstatistik)|(?:W[ÖO]CHENTLICHER\sFORTSCHRITT))",
+            ),
+            (
+                babel.Locale.parse("it"),
+                r"(?:(?:Riepilogo\sattivit[àa])|(?:PROGRESSI\sSETTIMANALI))",
+            ),
+            (babel.Locale.parse("ja"), r"(?:(?:アクティビティ)|(?:ウィークリー))"),
+            (babel.Locale.parse("ko"), r"(?:(?:활동)|(?:주간\s피트니스))"),
+            (babel.Locale.parse("es"), r"(?:(?:Total\sde\sactividades)|(?:PROGRESO\sSEMANAL))"),
+            (babel.Locale.parse("zh_hant"), r"(?:(?:活動紀錄)|(?:本週成果))"),
+            (babel.Locale.parse("en"), r"(?:(?:Total\sActivity)|(?:WEEKLY\sPROGRESS))"),
+            (babel.Locale.parse("pt_br"), r"(?:(?:Total\sde\satividades)|(?:PROGRESSO\sSEMANAL))"),
+            (babel.Locale.parse("th"), r"(?:(?:กิจกรรมทั้งหมด)|(?:ความคืบหน้าประจำสัปดาห์))"),
         ]
         for locale, pattern in locale_lookup:
             if re.search(pattern, self.text_found[0].description, re.IGNORECASE):
@@ -52,7 +61,7 @@ class ProfileSelf(Image):
         try:
             travel_km = (
                 re.search(
-                    self.pattern_lookups[self.locale]["travel_km"],
+                    self.pattern_lookups[self.locale.language]["travel_km"],
                     self.text_found[0].description,
                     re.IGNORECASE,
                 )[1]
@@ -72,7 +81,7 @@ class ProfileSelf(Image):
         try:
             total_xp = (
                 re.search(
-                    self.pattern_lookups[self.locale]["total_xp"],
+                    self.pattern_lookups[self.locale.language]["total_xp"],
                     self.text_found[0].description,
                     re.IGNORECASE,
                 )[1]
@@ -92,7 +101,7 @@ class ProfileSelf(Image):
             return re.search(
                 r"([A-Za-z0-9]+)\n(?:\&|et|con|e) ?(.+)", self.text_found[0].description
             )[1]
-        except TypeError as e:
+        except TypeError:
             log.exception("username failed to return")
             return None
 
@@ -102,7 +111,7 @@ class ProfileSelf(Image):
             return re.search(
                 r"([A-Za-z0-9]+)\n(?:\&|et|con|e) ?(.+)", self.text_found[0].description
             )[2]
-        except TypeError as e:
+        except TypeError:
             log.exception("buddy_name failed to return")
             return None
 
@@ -111,7 +120,7 @@ class ProfileSelf(Image):
         try:
             result = (
                 re.search(
-                    self.pattern_lookups[self.locale]["travel_km"],
+                    self.pattern_lookups[self.locale.language]["travel_km"],
                     self.text_found[0].description,
                     re.IGNORECASE,
                 )[1]
@@ -119,7 +128,7 @@ class ProfileSelf(Image):
                 .strip()
             )
             return parse_decimal(result, locale=self.numeric_locale)
-        except (NumberFormatError, TypeError) as e:
+        except (babel.numbers.NumberFormatError, TypeError):
             log.exception("travel_km failed to return")
             return None
 
@@ -127,12 +136,12 @@ class ProfileSelf(Image):
     def capture_total(self) -> Optional[int]:
         try:
             result = re.search(
-                self.pattern_lookups[self.locale]["capture_total"],
+                self.pattern_lookups[self.locale.language]["capture_total"],
                 self.text_found[0].description,
                 re.IGNORECASE,
             )[1].strip()
             return parse_number(result, locale=self.numeric_locale)
-        except (NumberFormatError, TypeError) as e:
+        except (babel.numbers.NumberFormatError, TypeError):
             log.exception("capture_total failed to return")
             return None
 
@@ -140,12 +149,12 @@ class ProfileSelf(Image):
     def pokestops_visited(self) -> Optional[int]:
         try:
             result = re.search(
-                self.pattern_lookups[self.locale]["pokestops_visited"],
+                self.pattern_lookups[self.locale.language]["pokestops_visited"],
                 self.text_found[0].description,
                 re.IGNORECASE,
             )[1].strip()
             return parse_number(result, locale=self.numeric_locale)
-        except (NumberFormatError, TypeError) as e:
+        except (babel.numbers.NumberFormatError, TypeError):
             log.exception("pokestops_visited failed to return")
             return None
 
@@ -153,12 +162,12 @@ class ProfileSelf(Image):
     def total_xp(self) -> Optional[int]:
         try:
             result = re.search(
-                self.pattern_lookups[self.locale]["total_xp"],
+                self.pattern_lookups[self.locale.language]["total_xp"],
                 self.text_found[0].description,
                 re.IGNORECASE,
             )[1].strip()
             return parse_number(result, locale=self.numeric_locale)
-        except (NumberFormatError, TypeError) as e:
+        except (babel.numbers.NumberFormatError, TypeError):
             log.exception("total_xp failed to return")
             return None
 
@@ -166,12 +175,12 @@ class ProfileSelf(Image):
     def start_date(self) -> Optional[datetime.date]:
         try:
             result = re.search(
-                self.pattern_lookups[self.locale]["start_date"],
+                self.pattern_lookups[self.locale.language]["start_date"],
                 self.text_found[0].description,
                 re.IGNORECASE,
             )[1]
             return parse_date(result).date()
-        except (ValueError, OverflowError, TypeError) as e:
+        except (ValueError, OverflowError, TypeError):
             log.exception("start_date failed to return")
             return None
 

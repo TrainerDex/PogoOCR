@@ -1,3 +1,4 @@
+import babel
 import decimal
 import logging
 import PogoOCR
@@ -29,7 +30,7 @@ options = [
         "fr",
         "https://cdn.discordapp.com/attachments/339450026076012544/712570150921961512/Screenshot_20200520-083906.jpg",
         {
-            "locale": "fr",
+            "locale": babel.Locale.parse("fr"),
             "numeric_locale": {"group": "\xa0", "decimal": ","},
             "username": "JayTurnrTDX",
             "travel_km": decimal.Decimal("6170.4"),
@@ -42,7 +43,7 @@ options = [
         "de",
         "https://cdn.discordapp.com/attachments/339450026076012544/712579182416232458/Screenshot_20200520-091452.jpg",
         {
-            "locale": "de",
+            "locale": babel.Locale.parse("de"),
             "numeric_locale": {"group": ".", "decimal": ","},
             "username": "JayTurnrTDX",
             "travel_km": decimal.Decimal("6170.4"),
@@ -55,7 +56,7 @@ options = [
         "it",
         "https://cdn.discordapp.com/attachments/339450026076012544/712582940244181073/Screenshot_20200520-092956.jpg",
         {
-            "locale": "it",
+            "locale": babel.Locale.parse("it"),
             "numeric_locale": {"group": ".", "decimal": ","},
             "username": "JayTurnrTDX",
             "travel_km": decimal.Decimal("6170.4"),
@@ -68,7 +69,7 @@ options = [
         "ja",
         "https://cdn.discordapp.com/attachments/339450026076012544/712585432520589352/Screenshot_20200520-093943.jpg",
         {
-            "locale": "ja",
+            "locale": babel.Locale.parse("ja"),
             "numeric_locale": {"group": ",", "decimal": "."},
             "username": "JayTurnrTDX",
             "travel_km": decimal.Decimal("6170.4"),
@@ -81,7 +82,7 @@ options = [
         "ko",
         "https://cdn.discordapp.com/attachments/339450026076012544/712587774309433364/Screenshot_20200520-094915.jpg",
         {
-            "locale": "ko",
+            "locale": babel.Locale.parse("ko"),
             "numeric_locale": {"group": ",", "decimal": "."},
             "username": "JayTurnrTDX",
             "travel_km": decimal.Decimal("6170.4"),
@@ -94,7 +95,7 @@ options = [
         "es",
         "https://cdn.discordapp.com/attachments/339450026076012544/712590402548662372/Screenshot_20200520-095940.jpg",
         {
-            "locale": "es",
+            "locale": babel.Locale.parse("es"),
             "numeric_locale": {"group": ".", "decimal": ","},
             "username": "JayTurnrTDX",
             "travel_km": decimal.Decimal("6170.4"),
@@ -107,7 +108,7 @@ options = [
         "zh",
         "https://cdn.discordapp.com/attachments/339450026076012544/712592915234422784/Screenshot_20200520-100930.jpg",
         {
-            "locale": "zh",
+            "locale": babel.Locale.parse("zh_hant"),
             "numeric_locale": {"group": ",", "decimal": "."},
             "username": "JayTurnrTDX",
             "travel_km": decimal.Decimal("6170.4"),
@@ -120,7 +121,7 @@ options = [
         "en",
         "https://cdn.discordapp.com/attachments/543105822629167104/709926063282847834/Screenshot_20200513-013228.jpg",
         {
-            "locale": "en",
+            "locale": babel.Locale.parse("en"),
             "numeric_locale": {"group": ",", "decimal": "."},
             "username": "JayTurnrTDX",
             "travel_km": decimal.Decimal("6163.7"),
@@ -133,7 +134,7 @@ options = [
         "pt",
         "https://cdn.discordapp.com/attachments/339450026076012544/712597570421260408/Screenshot_20200520-102802.jpg",
         {
-            "locale": "pt",
+            "locale": babel.Locale.parse("pt_br"),
             "numeric_locale": {"group": ".", "decimal": ","},
             "username": "JayTurnrTDX",
             "travel_km": decimal.Decimal("6170.4"),
@@ -147,7 +148,7 @@ options = [
         "https://cdn.discordapp.com/attachments/329751396222238722/711468207667544095/Screenshot_20200517-074014.png",
         (
             {
-                "locale": "en",
+                "locale": babel.Locale.parse("en"),
                 "numeric_locale": {"group": ",", "decimal": "."},
                 "username": "nerraw1986",
                 "travel_km": decimal.Decimal("1325.7"),
@@ -156,7 +157,7 @@ options = [
                 "total_xp": 5421143,
             },
             {
-                "locale": "en",
+                "locale": babel.Locale.parse("en"),
                 "numeric_locale": {"group": ",", "decimal": "."},
                 "username": "nerraw1986",
                 "travel_km": decimal.Decimal("1325.7"),
@@ -170,7 +171,7 @@ options = [
         "xp_total_xp_issue",
         "https://cdn.discordapp.com/attachments/329751396222238722/711961584230203402/Screenshot_20200518-162012_Pokmon_GO.jpg",
         {
-            "locale": "en",
+            "locale": babel.Locale.parse("en"),
             "numeric_locale": {"group": ",", "decimal": "."},
             "username": None,
             "travel_km": decimal.Decimal("1895.9"),
@@ -183,7 +184,7 @@ options = [
         "fr",
         "https://cdn.discordapp.com/attachments/370708840850653184/752445686699786270/Screenshot_20200907_103022_com.nianticlabs.pokemongo.jpg",
         {
-            "locale": "fr",
+            "locale": babel.Locale.parse("fr"),
             "numeric_locale": {"group": "\xa0", "decimal": "."},
             "username": "03icemix",
             "travel_km": decimal.Decimal("809.1"),
@@ -196,7 +197,7 @@ options = [
         "english with non-english numerics",
         "https://cdn.discordapp.com/attachments/370708840850653184/751596341985148958/image0.png",
         {
-            "locale": "en",
+            "locale": babel.Locale.parse("en"),
             "numeric_locale": {"group": "\xa0", "decimal": ","},
             "username": None,
             "travel_km": decimal.Decimal("1127.1"),
