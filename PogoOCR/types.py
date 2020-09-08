@@ -78,22 +78,23 @@ class ProfileSelf(Image):
                 self.numeric_locale["group"] = translated[-2]
 
         # If travel_km wasn't big enough to get the group for numeric_locale, try total_xp
-        try:
-            total_xp = (
-                re.search(
-                    self.pattern_lookups[self.locale.language]["total_xp"],
-                    self.text_found[0].description,
-                    re.IGNORECASE,
-                )[1]
-                .strip()
-                .replace(" ", "\xa0")
-            )
-        except (ValueError, TypeError):
-            # Assume English
-            self.numeric_locale["group"] = ","
-        else:
-            translated = total_xp.translate(str.maketrans("", "", digits))
-            self.numeric_locale["group"] = translated[0]
+        if self.numeric_locale.get("group") is None:
+            try:
+                total_xp = (
+                    re.search(
+                        self.pattern_lookups[self.locale.language]["total_xp"],
+                        self.text_found[0].description,
+                        re.IGNORECASE,
+                    )[1]
+                    .strip()
+                    .replace(" ", "\xa0")
+                )
+            except (ValueError, TypeError):
+                # Assume Locale
+                self.numeric_locale["group"] = babel.get_group_symbol(self.locale)
+            else:
+                translated = total_xp.translate(str.maketrans("", "", digits))
+                self.numeric_locale["group"] = translated[0]
 
     @property
     def username(self) -> Optional[str]:

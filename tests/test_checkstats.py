@@ -206,6 +206,19 @@ options = [
             "total_xp": 16657146,
         },
     ),
+    (
+        "english with but missing travel_km",
+        "https://cdn.discordapp.com/attachments/370708840850653184/752889030680510494/Screenshot_20200908-145202.jpg",
+        {
+            "locale": babel.Locale.parse("en"),
+            "numeric_locale": {"group": ","},
+            "username": None,
+            "travel_km": None,
+            "capture_total": 6062,
+            "pokestops_visited": 44890,
+            "total_xp": 75751423,
+        },
+    ),
 ]
 
 
