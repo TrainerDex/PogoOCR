@@ -1,0 +1,72 @@
+{
+  "de": {
+    "capture_total": "Gefangene Pok[ée]mon\\n(.+)",
+    "pokestops_visited": "Besuchte\\sPok[ée]Stops[;:：]?\\n(.+)",
+    "start_date": "Startdatum\\n(.+)",
+    "total_xp": "Gesamt-EP\\n(.+)",
+    "travel_km": "Gelaufene\\sDistanz\\n(.+)"
+  },
+  "en": {
+    "capture_total": "Pok[ée]mon\\sCaught\\n(.+)",
+    "pokestops_visited": "Pok[ée]Stops\\sVisited[;:：]?\\n(.+)",
+    "start_date": "Start\\sDate:\\n(.+)",
+    "total_xp": "Total\\sXP:\\n(.+)",
+    "travel_km": "Distance Walked\\n(.+)"
+  },
+  "es": {
+    "capture_total": "Pok[ée]mon atrapados\\n(.+)",
+    "pokestops_visited": "Pok[ée]paradas\\svisitadas[;:：]?\\n(.+)",
+    "start_date": "Fecha\\sde\\sinicio\\n(.+)",
+    "total_xp": "Total\\sde\\sPX\\n(.+)",
+    "travel_km": "Distancia\\scaminando\\n(.+)"
+  },
+  "fr": {
+    "capture_total": "Pok[ée]mon\\sattrap[ée]s\\n(.+)",
+    "pokestops_visited": "Pok[ée]Stops visit[ée]s\\n(.+)",
+    "start_date": "Date\\sde\\sd[ée]but\\n(.+)",
+    "total_xp": "Total\\sde\\sPX\\s?[;:：]?\\n(.+)",
+    "travel_km": "Distance\\smarch[ée]e\\n(.+)"
+  },
+  "it": {
+    "capture_total": "Pok[ée]mon catturati\\n(.+)",
+    "pokestops_visited": "Pok[ée]stop\\svisitati[;:：]?\\n(.+)",
+    "start_date": "Data\\sdi\\sinizio\\n(.+)",
+    "total_xp": "Totale\\sPE\\n(.+)",
+    "travel_km": "Distanza\\spercorsa\\n(.+)"
+  },
+  "ja": {
+    "capture_total": "つかまえたポケモン\\n(.+)",
+    "pokestops_visited": "訪れたポケストップ\\n(.+)",
+    "start_date": "始めた日\\n(.+)",
+    "total_xp": "トータルXP\\n(.+)",
+    "travel_km": "歩いた距離\\n(.+)"
+  },
+  "ko": {
+    "capture_total": "잡은\\s포켓몬\\n(.+)",
+    "pokestops_visited": "방문한\\s포켓스톱\\n(.+)",
+    "start_date": "시작한\\s날\\n(.+)",
+    "total_xp": "Total XP\\n(.+)",
+    "travel_km": "걸은\\s거리\\n(.+)"
+  },
+  "pt": {
+    "capture_total": "Pok[ée]mon pegos\\n(.+)",
+    "pokestops_visited": "Pok[ée]paradas\\svisitadas[;:：]?\\n(.+)",
+    "start_date": "Data\\sde\\sin[íi]cio\\n(.+)",
+    "total_xp": "Total\\sde\\sPE[;:：]?\\n(.+)",
+    "travel_km": "Dist[âa]ncia\\sa\\sp[ée]\\n(.+)"
+  },
+  "th": {
+    "capture_total": "โปเกมอนที่จับได้\\n(.+)",
+    "pokestops_visited": "เสาโปเกสต็อปที่เคยไป[;:：]?\\n(.+)",
+    "start_date": "วันที่เริ่มเล่น\\n(.+)",
+    "total_xp": "XP\\sทั้งหมด[;:：]?\\n(.+)",
+    "travel_km": "ระยะทางที่เดิน\\n(.+)"
+  },
+  "zh": {
+    "capture_total": "捉到的寶可夢\\n(.+)",
+    "pokestops_visited": "拜訪過的寶可補給站\\s?[;:：]?\\n(.+)",
+    "start_date": "開始日\\n(.+)",
+    "total_xp": "總XP\\n(.+)",
+    "travel_km": "步行距離\\n(.+)"
+  }
+}
