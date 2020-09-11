@@ -28,7 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated google-cloud-vision to 1.0.0
 
 ### Fixed
-- Fixed an issue where the OCR might fail first time. Retries up to 5 times.
+- Fixed an issue where the OCR might fail the first time. Retries up to 5 times.
 - Fixed small issues in the regex strings
 
 
@@ -71,7 +71,7 @@ This is a :class:`str` to the location of a Google Cloud JSON-key file.
 - Removed Italian language for :class:`ProfileSelf`
 - Removed Portuguese (Brazilian) language for :class:`ProfileSelf`
 
-## [0.0.3] - 2010-01-20
+## [0.1.0] - 2010-01-20
 ### Added
 - Bump Version for release
 - Added boilerplate for :class:`Badge`
@@ -93,7 +93,8 @@ This is a :class:`str` to the location of a Google Cloud JSON-key file.
 - Added :class:`ProfileBottom` for getting Total XP (:attr:`total_xp`) and Start Date as text (:attr:`start_date_text`)
 - Added English language for :class:`ProfileTop` and :class:`ProfileBottom`
 
-[Unreleased]: https://github.com/TrainerDex/PogoOCR/compare/0.3.1...develop
+[Unreleased]: https://github.com/TrainerDex/PogoOCR/compare/0.3.2...develop
+[0.3.2]: https://github.com/TrainerDex/PogoOCR/compare/0.3.1...0.3.2
 [0.3.1]: https://github.com/TrainerDex/PogoOCR/compare/0.3.0...0.3.1
 [0.3.0]: https://github.com/TrainerDex/PogoOCR/compare/0.2.0...0.3.0
 [0.2.0]: https://github.com/TrainerDex/PogoOCR/compare/0.1.0...0.2.0
