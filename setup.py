@@ -21,6 +21,7 @@ setuptools.setup(
     url="https://github.com/TrainerDex/PogoOCR",
     packages=setuptools.find_packages(),
     data_files=[("PogoOCR", ["PogoOCR/pattern_lookups.json"])],
+    include_package_data=True,
     install_requires=requirements,
     python_requires=">=3.6",
     classifiers=[
