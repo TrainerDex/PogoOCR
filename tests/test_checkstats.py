@@ -219,6 +219,19 @@ options = [
             "total_xp": 75751423,
         },
     ),
+    (
+        "Teamless profile",
+        "https://cdn.discordapp.com/attachments/534176124025044992/759864766453121064/image0.png",
+        {
+            "locale": babel.Locale.parse("en"),
+            "numeric_locale": {"group": ","},
+            "username": "PogoTraveler1",
+            "travel_km": 456.9,
+            "capture_total": 7225,
+            "pokestops_visited": None,
+            "total_xp": None,
+        },
+    ),
 ]
 
 
