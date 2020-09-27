@@ -2,23 +2,45 @@ import datetime
 import decimal
 import json
 import logging
+import math
 import os
 import re
+from io import BytesIO
 from string import digits
 from typing import Optional
 
 import babel
+import requests
 from dateutil.parser import parse as parse_date
+from PIL import Image as PILImage
 
 from .cloudvision import Image
 from .numbers import parse_decimal, parse_number
 
 log: logging.Logger = logging.getLogger(__name__)
 
+TEAMLESS = 0
+MYSTIC = 1
+VALOR = 2
+INSTINCT = 3
+
+TEAM_COLOURS = (
+    (None, (0, 0, 0)),
+    (None, (159, 228, 163)),  # Friends List Page
+    (None, (160, 208, 150)),  # Badge Pages
+    (TEAMLESS, (0.0, 231.0, 181.0)),
+    (MYSTIC, (6.5, 118.8, 241.6)),
+    (VALOR, (255.0, 4.0, 42.0)),
+    (INSTINCT, (253.0, 202.0, 0.1)),
+)
+
 
 class ProfileSelf(Image):
-    def __init__(self, service_file, image_content=None, image_uri=None) -> None:
-        super().__init__(service_file, image_content=image_content, image_uri=image_uri)
+    def __init__(self, service_file: str, image_uri: str) -> None:
+        super().__init__(service_file, image_uri)
+        self.pilimage = PILImage.open(BytesIO(requests.get(image_uri).content))
+        self.pilimage = self.pilimage.convert(mode="RGB")
+        self._team = None
         self.locale = babel.Locale.parse("en")
         self.numeric_locale = {}
         with open(os.path.join(os.path.dirname(__file__), "pattern_lookups.json"), "r") as f:
@@ -96,6 +118,24 @@ class ProfileSelf(Image):
                 translated = total_xp.translate(str.maketrans("", "", digits))
                 self.numeric_locale["group"] = translated[0]
 
+    def _calculate_colour_distance(self, c1, c2):
+        (r1, g1, b1) = c1
+        (r2, g2, b2) = c2
+        return math.sqrt((r1 - r2) ** 2 + (g1 - g2) ** 2 + (b1 - b2) ** 2)
+
+    def get_team(self) -> int:
+        # Get the pixel in the middle, 2 pixels in
+        # This is because the game adds borders to your profile to match your team colour
+        pixel_location = (2, self.pilimage.size[1] / 2)
+        rgb = self.pilimage.getpixel(pixel_location)
+        closest_colours = sorted(
+            TEAM_COLOURS, key=lambda colour: self._calculate_colour_distance(colour[1], rgb)
+        )
+        log.debug(f"RGB: {rgb}")
+        log.debug(f"Guesses: {closest_colours}")
+        best_guess = closest_colours[0][0]
+        return best_guess
+
     @property
     def username(self) -> Optional[str]:
         try:
@@ -115,6 +155,14 @@ class ProfileSelf(Image):
         except TypeError:
             log.exception("buddy_name failed to return")
             return None
+
+    @property
+    def team(self) -> Optional[int]:
+        if isinstance(self._team, int):
+            return self._team
+        else:
+            self._team = self.get_team()
+            return self._team
 
     @property
     def travel_km(self) -> Optional[decimal.Decimal]:
