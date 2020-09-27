@@ -91,7 +91,7 @@ class ProfileSelf(Image):
                 )
             except (ValueError, TypeError):
                 # Assume Locale
-                self.numeric_locale["group"] = babel.get_group_symbol(self.locale)
+                self.numeric_locale["group"] = babel.Locale.get_group_symbol(self.locale)
             else:
                 translated = total_xp.translate(str.maketrans("", "", digits))
                 self.numeric_locale["group"] = translated[0]
