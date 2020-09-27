@@ -5,6 +5,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Added Team checking
+
+### Changed
+- Removed :attr:`image_content` from :class:`Image`
+- Made :attr:`image_uri` in :class:`Image` required 
 
 ## [0.3.2] - 2020-09-08
 ### Added
