@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.3] - 2020-10-02
+### Fixed
+- Fixed a bug on finding the group symbol when all other methods fail
+
 ## [0.3.2] - 2020-09-08
 ### Added
 - Added proper logging
