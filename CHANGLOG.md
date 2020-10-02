@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Removed :attr:`image_content` from :class:`Image`
 - Made :attr:`image_uri` in :class:`Image` required 
 
-## [0.3.3] - 2020-10-02
+## [0.3.4] - 2020-10-02
 ### Fixed
 - Fixed a bug on finding the group symbol when all other methods fail
 
