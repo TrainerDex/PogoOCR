@@ -4,6 +4,8 @@ from google.cloud import vision
 from google.cloud.vision import types
 from google.oauth2 import service_account
 
+from .exceptions import OutOfRetriesException
+
 log: logging.Logger = logging.getLogger(__name__)
 
 
@@ -31,4 +33,4 @@ class Image:
                 break
 
         if attempts == 5:
-            raise Exception(response.text_annotations)
+            raise OutOfRetriesException(response.text_annotations)
