@@ -33,4 +33,4 @@ class Image:
                 break
 
         if attempts == 5:
-            raise OutOfRetriesException(response.text_annotations)
+            raise OutOfRetriesException()

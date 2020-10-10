@@ -10,7 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Removed :attr:`image_content` from :class:`Image`
-- Made :attr:`image_uri` in :class:`Image` required 
+- Made :attr:`image_uri` in :class:`Image` required
+
+## [0.3.6] - 2020-10-10
+### Added
+- Backported OutOfRetriesException from 0.4.0
 
 ## [0.3.5] - 2020-10-07
 ### Dependencies
