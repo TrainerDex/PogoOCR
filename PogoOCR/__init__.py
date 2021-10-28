@@ -12,8 +12,8 @@ A Python tool for running OCR on Pokemon Screenshots using Google Cloud Vision
 __title__ = "PogoOCR"
 __author__ = "JayTurnr"
 __licence__ = "GNU GENERAL PUBLIC LICENSE 3.0"
-__copyright__ = "2020 TrainerDex"
-__version__ = "0.3.7"
+__copyright__ = "2021 TrainerDex"
+__version__ = "0.3.8"
 
 from .exceptions import OutOfRetriesException
 from .cloudvision import Image
