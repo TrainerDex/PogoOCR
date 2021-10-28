@@ -78,7 +78,7 @@ class ProfileSelf(Image):
         try:
             travel_km = (
                 re.search(
-                    self.pattern_lookups[self.locale.language]["travel_km"],
+                    self.pattern_lookups[self.locale.language]["travel_km"] + "\s?[;:：]?\n(.+)",
                     self.text_found[0].description,
                     re.IGNORECASE,
                 )[1]
@@ -99,7 +99,7 @@ class ProfileSelf(Image):
             try:
                 total_xp = (
                     re.search(
-                        self.pattern_lookups[self.locale.language]["total_xp"],
+                        self.pattern_lookups[self.locale.language]["total_xp"] + "\s?[;:：]?\n(.+)",
                         self.text_found[0].description,
                         re.IGNORECASE,
                     )[1]
@@ -164,7 +164,7 @@ class ProfileSelf(Image):
         try:
             result = (
                 re.search(
-                    self.pattern_lookups[self.locale.language]["travel_km"],
+                    self.pattern_lookups[self.locale.language]["travel_km"] + "\s?[;:：]?\n(.+)",
                     self.text_found[0].description,
                     re.IGNORECASE,
                 )[1]
@@ -180,7 +180,7 @@ class ProfileSelf(Image):
     def capture_total(self) -> Optional[int]:
         try:
             result = re.search(
-                self.pattern_lookups[self.locale.language]["capture_total"],
+                self.pattern_lookups[self.locale.language]["capture_total"] + "\s?[;:：]?\n(.+)",
                 self.text_found[0].description,
                 re.IGNORECASE,
             )[1].strip()
@@ -193,7 +193,8 @@ class ProfileSelf(Image):
     def pokestops_visited(self) -> Optional[int]:
         try:
             result = re.search(
-                self.pattern_lookups[self.locale.language]["pokestops_visited"],
+                self.pattern_lookups[self.locale.language]["pokestops_visited"]
+                + "\s?[;:：]?\n(.+)",
                 self.text_found[0].description,
                 re.IGNORECASE,
             )[1].strip()
@@ -206,7 +207,7 @@ class ProfileSelf(Image):
     def total_xp(self) -> Optional[int]:
         try:
             result = re.search(
-                self.pattern_lookups[self.locale.language]["total_xp"],
+                self.pattern_lookups[self.locale.language]["total_xp"] + "\s?[;:：]?\n(.+)",
                 self.text_found[0].description,
                 re.IGNORECASE,
             )[1].strip()
@@ -219,7 +220,7 @@ class ProfileSelf(Image):
     def start_date(self) -> Optional[datetime.date]:
         try:
             result = re.search(
-                self.pattern_lookups[self.locale.language]["start_date"],
+                self.pattern_lookups[self.locale.language]["start_date"] + "\s?[;:：]?\n(.+)",
                 self.text_found[0].description,
                 re.IGNORECASE,
             )[1]
