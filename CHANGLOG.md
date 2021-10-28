@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [0.3.7] - 2021-10-28
 ### Added
 - Added Team checking
 
@@ -12,7 +14,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Removed :attr:`image_content` from :class:`Image`
 - Made :attr:`image_uri` in :class:`Image` required
 
-## [0.3.7] - 2020-10-10
 ### Fixed
 - Fixed Regex Logic
 
