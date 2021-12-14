@@ -1,5 +1,5 @@
 Babel>=2.0.0
-google-cloud-vision==1.0.0
+google-cloud-vision==2.6.3
 Pillow>=8.3.2
 python-dateutil
 requests
