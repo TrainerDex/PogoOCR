@@ -14,7 +14,7 @@ setuptools.setup(
     name="PogoOCR",
     version=version,
     author="Jay Turner",
-    author_email="jay@trainerdex.co.uk",
+    author_email="jay@trainerdex.app",
     description="A Python tool for running OCR on Pokemon Screenshots",
     long_description=readme,
     long_description_content_type="text/markdown",
