@@ -44,7 +44,7 @@ class ProfileSelf(Image):
         self._team = None
         self.locale = Locale.parse("en")
         self.numeric_locale = {}
-        with open(os.path.join(os.path.dirname(__file__), "pattern_lookups.json"), "r") as f:
+        with open(os.path.join(os.path.dirname(__file__), "pattern_lookups.json"), "r", encoding="utf-8") as f:
             self.pattern_lookups = json.load(f)
 
     def get_text(self, force: Optional[bool] = False) -> None:
