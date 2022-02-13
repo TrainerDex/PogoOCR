@@ -46,10 +46,6 @@ options = [
         VALOR,
     ),
     (
-        "https://cdn.discordapp.com/attachments/534176124025044992/759864766453121064/image0.png",
-        TEAMLESS,
-    ),
-    (
         "https://cdn.discordapp.com/attachments/426869945628884992/752665941023653928/image0.png",
         INSTINCT,
     ),
