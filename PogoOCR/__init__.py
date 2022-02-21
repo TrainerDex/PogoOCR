@@ -15,6 +15,6 @@ __licence__ = "GNU GENERAL PUBLIC LICENSE 3.0"
 __copyright__ = "2021 TrainerDex"
 __version__ = "0.3.9"
 
-from .exceptions import OutOfRetriesException
+from .exceptions import OCRAttemptsExhausted
 from .providers.cloudvision import Screenshot
 from .types import ProfileSelf
