@@ -16,5 +16,5 @@ __copyright__ = "2021 TrainerDex"
 __version__ = "0.3.9"
 
 from .exceptions import OutOfRetriesException
-from .cloudvision import Image
+from .providers.cloudvision import Screenshot
 from .types import ProfileSelf

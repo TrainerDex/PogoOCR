@@ -1,21 +1,25 @@
 import logging
+from typing import TYPE_CHECKING
 
-from google.cloud import vision
-from google.cloud.vision import types
+from google.cloud.vision import ImageAnnotatorClient
 from google.oauth2 import service_account
 
-from .exceptions import OutOfRetriesException
+from ..exceptions import OutOfRetriesException
+
+if TYPE_CHECKING:
+    from google.cloud.vision_v1.proto.image_annotator_pb2 import Image
+else:
+    from google.cloud.vision.types import Image
+
 
 log: logging.Logger = logging.getLogger(__name__)
 
 
-class Image:
-    def __init__(self, service_file: str, image_uri: str) -> None:
-        self.google = vision.ImageAnnotatorClient(
-            credentials=service_account.Credentials.from_service_account_file(service_file)
-        )
+class Screenshot:
+    def __init__(self, credentials: service_account.Credentials, image_uri: str) -> None:
+        self.client = ImageAnnotatorClient(credentials=credentials)
 
-        self.image = types.Image()
+        self.image: Image = Image()
         self.image.source.image_uri = image_uri
 
     def get_text(self) -> None:
@@ -23,7 +27,7 @@ class Image:
         attempts = 0
         while attempts < 5:
             attempts += 1
-            response = self.google.text_detection(image=self.image)
+            response = self.client.text_detection(image=self.image)
             try:
                 response.text_annotations[0]
             except IndexError:

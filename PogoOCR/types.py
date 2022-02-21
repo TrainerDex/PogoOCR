@@ -13,9 +13,9 @@ import requests
 from babel import Locale
 from babel.numbers import get_group_symbol, NumberFormatError
 from dateutil.parser import parse as parse_date
-from PIL import Image as PILImage
+from PIL import Image
 
-from .cloudvision import Image
+from .providers.cloudvision import Screenshot
 from .numbers import parse_decimal, parse_number
 
 log: logging.Logger = logging.getLogger(__name__)
@@ -36,15 +36,17 @@ TEAM_COLOURS = (
 )
 
 
-class ProfileSelf(Image):
+class ProfileSelf(Screenshot):
     def __init__(self, service_file: str, image_uri: str) -> None:
         super().__init__(service_file, image_uri)
-        self.pilimage = PILImage.open(BytesIO(requests.get(image_uri).content))
+        self.pilimage = Image.open(BytesIO(requests.get(image_uri).content))
         self.pilimage = self.pilimage.convert(mode="RGB")
         self._team = None
         self.locale = Locale.parse("en")
         self.numeric_locale = {}
-        with open(os.path.join(os.path.dirname(__file__), "pattern_lookups.json"), "r", encoding="utf-8") as f:
+        with open(
+            os.path.join(os.path.dirname(__file__), "pattern_lookups.json"), "r", encoding="utf-8"
+        ) as f:
             self.pattern_lookups = json.load(f)
 
     def get_text(self, force: Optional[bool] = False) -> None:
