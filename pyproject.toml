@@ -26,7 +26,7 @@ include = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.6.2"
+python = ">=3.6.2,<3.11"
 google-cloud-vision = "2.6.3"
 python-dateutil = "^2.8.2"
 requests = "^2.27.1"
