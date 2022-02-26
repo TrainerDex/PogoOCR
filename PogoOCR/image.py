@@ -1,9 +1,13 @@
 import hashlib
 import requests
-import aiohttp
 from io import BytesIO
 from PIL import Image
 from typing import TYPE_CHECKING, Any, Coroutine, Literal, Optional, Union, overload
+
+try:
+    import aiohttp
+except ImportError:
+    aiohttp = None
 
 if TYPE_CHECKING:
     from typing_extensions import Self
@@ -57,6 +61,8 @@ class Screenshot:
         self._content = requests.get(self._url).content
 
     async def _async_get_content(self) -> None:
+        if aiohttp is None:
+            raise RuntimeError("aiohttp is not installed")
         async with aiohttp.ClientSession() as session:
             async with session.get(self._url) as resp:
                 self._content = await resp.read()
