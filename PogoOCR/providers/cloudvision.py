@@ -1,3 +1,4 @@
+from io import BytesIO
 import logging
 import pytz
 from dataclasses import dataclass
@@ -8,8 +9,9 @@ from uuid import UUID, uuid4
 from google.auth.exceptions import GoogleAuthError
 from google.cloud import vision
 from google.oauth2 import service_account
+from PogoOCR.constants import Language
 
-from PogoOCR.image import Screenshot
+from PogoOCR.images import Screenshot
 
 from PogoOCR.exceptions import (
     CloudVisionAuthenticationException,
@@ -28,8 +30,14 @@ class CloudVisionRequest(IRequest):
     _attempts_made: int = 0
     _last_attempt_dt: Union[datetime, None] = None
 
-    def __init__(self, client: "CloudVisionClient", screenshot: Screenshot) -> None:
+    def __init__(
+        self,
+        client: "CloudVisionClient",
+        screenshot: Screenshot,
+        language: Language = Language.ENGLISH,
+    ) -> None:
         self.uuid: UUID = uuid4()
+        self.language = language
         self.initalized_at: datetime = datetime.now(pytz.UTC)
         self._client: "CloudVisionClient" = client
         self._screenshot: Screenshot = screenshot
@@ -89,7 +97,10 @@ class CloudVisionClient(IProvider):
 
     @staticmethod
     def _to_google_image(screenshot: Screenshot) -> vision.Image:
-        return vision.Image(content=screenshot.image.tobytes())
+        bytes_io = BytesIO()
+        screenshot.image.save(bytes_io, format="PNG")
+        bytes_io.seek(0)
+        return vision.Image(content=bytes_io.read())
 
     def _detect_text(self, screenshot: Screenshot) -> vision.EntityAnnotation:
         gimage: vision.Image = self._to_google_image(screenshot)
@@ -124,7 +135,11 @@ class CloudVisionClient(IProvider):
         else:
             raise OCRAttemptsExhausted(f"Request {request} exhausted all attempts.")
 
-    def open_request(self, screenshot: Screenshot) -> "CloudVisionRequest":
-        request = CloudVisionRequest(client=self._client, screenshot=screenshot)
+    def open_request(
+        self,
+        screenshot: Screenshot,
+        language: Language = Language.ENGLISH,
+    ) -> "CloudVisionRequest":
+        request = CloudVisionRequest(client=self.client, screenshot=screenshot)
         logger.debug(f"Created Cloud Vision Request: {request}")
         return request

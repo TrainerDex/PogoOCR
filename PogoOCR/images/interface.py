@@ -4,23 +4,25 @@ from io import BytesIO
 from PIL import Image
 from typing import TYPE_CHECKING, Any, Coroutine, Literal, Optional, Union, overload
 
+
 try:
     import aiohttp
 except ImportError:
     aiohttp = None
 
 if TYPE_CHECKING:
+    from PogoOCR.images import ScreenshotClass
+    from PogoOCR.providers.interface import IReponse
     from typing_extensions import Self
 
 URL = str
 
 
 class Screenshot:
-    __slots__ = ("url", "content", "image", "md5")
-
     _url: Optional[URL] = None
     _content: bytes = None
-    _md5: hashlib._Hash = None
+    _md5: "hashlib._Hash" = None
+    _klass: "ScreenshotClass" = None
 
     @overload
     def __init__(self, *, url: URL):
@@ -30,9 +32,16 @@ class Screenshot:
     def __init__(self, *, content: bytes):
         ...
 
-    def __init__(self, *, url: Optional[URL] = None, content: Optional[bytes] = None):
+    def __init__(
+        self,
+        *,
+        url: Optional[URL] = None,
+        content: Optional[bytes] = None,
+        klass: "ScreenshotClass" = None,
+    ) -> None:
         self._url = url
         self._content = content
+        self._klass = klass
 
     @property
     def url(self) -> Optional[URL]:
@@ -56,6 +65,10 @@ class Screenshot:
         if self.has_content:
             return Image.open(BytesIO(self.content))
         return None
+
+    @property
+    def klass(self) -> "ScreenshotClass":
+        return self._klass
 
     def _get_content(self) -> None:
         self._content = requests.get(self._url).content
@@ -89,40 +102,44 @@ class Screenshot:
             return self._get_content()
 
     @classmethod
-    def _from_url(cls, url: URL) -> "Self":
-        obj = cls(url=url)
-        obj.get_content(url, asyncronous=False)
+    def _from_url(cls, url: URL, klass: "ScreenshotClass") -> "Self":
+        obj = cls(url=url, klass=klass)
+        obj.get_content(asyncronous=False)
         return obj
 
     @classmethod
-    async def _async_from_url(cls, url: URL) -> "Self":
-        obj = cls(url=url)
-        await obj.get_content(url, asyncronous=True)
+    async def _async_from_url(cls, url: URL, klass: "ScreenshotClass") -> "Self":
+        obj = cls(url=url, klass=klass)
+        await obj.get_content(asyncronous=True)
         return obj
 
     @overload
     @classmethod
-    def from_url(cls, url: URL) -> "Self":
+    def from_url(cls, url: URL, klass: "ScreenshotClass") -> "Self":
         ...
 
     @overload
     @classmethod
-    def from_url(cls, url: URL, *, asyncronous: Literal[False]) -> "Self":
+    def from_url(
+        cls, url: URL, klass: "ScreenshotClass", *, asyncronous: Literal[False]
+    ) -> "Self":
         ...
 
     @overload
     @classmethod
-    async def from_url(cls, url: URL, *, asyncronous: Literal[True]) -> "Self":
+    async def from_url(
+        cls, url: URL, klass: "ScreenshotClass", *, asyncronous: Literal[True]
+    ) -> "Self":
         ...
 
     @classmethod
     def from_url(
-        cls, url: URL, *, asyncronous: bool = False
+        cls, url: URL, klass: "ScreenshotClass", *, asyncronous: bool = False
     ) -> Union["Self", Coroutine[Any, Any, "Self"]]:
         if asyncronous:
-            return cls._async_from_url(url)
+            return cls._async_from_url(url, klass)
         else:
-            return cls._from_url(url)
+            return cls._from_url(url, klass)
 
     @classmethod
     def from_bytes(cls, content: bytes) -> "Self":
@@ -148,3 +165,9 @@ class Screenshot:
             return f"<Screenshot from {self.url} (not downloaded)>"
         else:
             return f"<Screenshot {self.md5}>"
+
+
+class IView:
+    def __init__(self, response: "IReponse") -> None:
+        self._response = response
+        self.language = self._response.request.language

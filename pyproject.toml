@@ -26,16 +26,19 @@ include = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.6.2,<3.11"
+python = ">=3.8.2,<3.11"
 google-cloud-vision = "2.6.3"
 python-dateutil = "^2.8.2"
 requests = "^2.27.1"
 babel = ">=2.0.0"
 pillow = ">=8.3.2"
 aiohttp = { version = "^3.8.1", optional = true }
+colour = "^0.1.5"
+colormath = "^3.0.0"
+numpy = ">=1.22.0"
 
 [tool.poetry.extras]
-async = ["aiohttp"]
+aiohttp = ["aiohttp"]
 
 [tool.poetry.dev-dependencies]
 black = "^22.1.0"
