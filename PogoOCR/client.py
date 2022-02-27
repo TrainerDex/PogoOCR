@@ -1,7 +1,7 @@
 from PogoOCR.constants import Language
 from PogoOCR.images import Screenshot
 from PogoOCR.providers import Providers
-from PogoOCR.providers.interface import IProvider, IReponse, IRequest
+from PogoOCR.providers.interface import IProvider, IResponse, IRequest
 
 
 class OCRClient:
@@ -21,6 +21,6 @@ class OCRClient:
         else:
             klass = request.screenshot.klass.value
 
-        response: IReponse = self.client.detect_text(request)
+        response: IResponse = self.client.detect_text(request)
         view = klass(response)
         return view.parse()

@@ -18,7 +18,7 @@ from PogoOCR.exceptions import (
     CloudVisionTextAnnotationException,
     OCRAttemptsExhausted,
 )
-from PogoOCR.providers.interface import IProvider, IReponse, IRequest
+from PogoOCR.providers.interface import IProvider, IResponse, IRequest
 
 
 logger: logging.Logger = logging.getLogger(__name__)
@@ -67,7 +67,7 @@ class CloudVisionRequest(IRequest):
 
 
 @dataclass
-class CloudVisionReponse(IReponse):
+class CloudVisionReponse(IResponse):
     request: CloudVisionRequest
     entity: vision.EntityAnnotation
 

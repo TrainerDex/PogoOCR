@@ -1,7 +1,10 @@
 from decimal import Decimal
-from typing import Optional
+from typing import TYPE_CHECKING, Optional
 from colour import Color
 from dataclasses import dataclass
+
+if TYPE_CHECKING:
+    from PogoOCR.providers.interface import IResponse
 
 
 @dataclass
@@ -21,8 +24,9 @@ class Faction:
 
 @dataclass
 class ActivityViewData:
-    faction: Faction
-    faction_confidence: float
+    _response: "IResponse" = None
+    faction: Optional[Faction] = None
+    faction_confidence: Optional[float] = None
     username: Optional[str] = None
     buddy: Optional[str] = None
     level: Optional[int] = None

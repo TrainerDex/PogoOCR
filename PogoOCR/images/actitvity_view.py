@@ -51,6 +51,9 @@ class ActivityView(IView):
         match: re.Match = re.search(
             r"(?P<username>[A-Za-z0-9]+)\n\&\s?(?P<buddy>.+)", self._response.content
         )
+        if match is None:
+            return None, None
+
         try:
             username = match.group("username")
         except ValueError:
@@ -69,9 +72,12 @@ class ActivityView(IView):
 
     def _parse_travel_km(self) -> Union[Decimal, None]:
         match: re.Match = re.search(
-            r"Distance\s*Walked:?\s*(?P<whole>(?:\d{0,3}[,\.]?)+)[,\.](?P<decimal>\d{1,2})\s*km",
+            r"Distance\s*Walked:?\s*(?P<whole>(?:\d{0,3}[,\.\s]?)+)[,\.\s](?P<decimal>\d{1,2})\s*km",
             self._response.content,
         )
+        if match is None:
+            return None
+
         try:
             whole: str = match.group("whole")
             decimal: str = match.group("decimal")
@@ -83,8 +89,10 @@ class ActivityView(IView):
 
     def _parse_capture_total(self) -> Union[int, None]:
         match: re.Match = re.search(
-            r"Pok[eé]mon\s*Caught:?\s*(?P<total>(?:\d{0,3}[,\.]?)+)", self._response.content
+            r"Pok[eé]mon\s*Caught:?\s*(?P<total>(?:\d{0,3}[,\.\s]?)+)", self._response.content
         )
+        if match is None:
+            return None
 
         try:
             total: str = match.group("total")
@@ -95,8 +103,10 @@ class ActivityView(IView):
 
     def _parse_pokestops_visited(self) -> Union[int, None]:
         match: re.Match = re.search(
-            r"Pok[eé]Stops\s*Visited:?\s*(?P<total>(?:\d{0,3}[,\.]?)+)", self._response.content
+            r"Pok[eé]Stops\s*Visited:?\s*(?P<total>(?:\d{0,3}[,\.\s]?)+)", self._response.content
         )
+        if match is None:
+            return None
 
         try:
             total: str = match.group("total")
@@ -107,8 +117,10 @@ class ActivityView(IView):
 
     def _parse_total_xp(self) -> Union[int, None]:
         match: re.Match = re.search(
-            r"Total\s*XP:?\s*(?P<total>(?:\d{0,3}[,\.]?)+)", self._response.content
+            r"Total\s*XP:?\s*(?P<total>(?:\d{0,3}[,\.\s]?)+)", self._response.content
         )
+        if match is None:
+            return None
 
         try:
             total: str = match.group("total")
@@ -126,13 +138,14 @@ class ActivityView(IView):
         total_xp = self._parse_total_xp()
         return travel_km, capture_total, pokestops_visited, total_xp
 
-    def parse(self):
+    def parse(self) -> ActivityViewData:
         faction, faction_confidence = self._identify_faction()
         username, buddy = self._look_for_username_and_buddy()
         level = self._parse_player_level()
         travel_km, capture_total, pokestops_visited, total_xp = self._parse_activity_segment()
 
         return ActivityViewData(
+            _response=self._response,
             faction=faction,
             faction_confidence=faction_confidence,
             username=username,

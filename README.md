@@ -4,3 +4,23 @@
 [![wakatime](https://wakatime.com/badge/github/TrainerDex/PogoOCR.svg?style=flat)](https://wakatime.com/badge/github/TrainerDex/PogoOCR)
 
 A Python tool for running OCR on Pokémon Screenshots using Google Cloud Vision
+
+
+Usage:
+
+```py
+import PogoOCR
+from google.oauth2 import service_account
+
+credentials: service_account.Credentials
+
+client = PogoOCR.OCRClient(credentials=credentials)
+screenshot = PogoOCR.Screenshot.from_url(
+    url="...",
+    klass=PogoOCR.ScreenshotClass.ACTIVITY_VIEW,
+)
+
+request = client.open_request(screenshot, PogoOCR.Language.ENGLISH)
+
+result = client.process_ocr(request)
+```

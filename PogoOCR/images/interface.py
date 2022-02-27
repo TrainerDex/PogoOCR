@@ -12,7 +12,7 @@ except ImportError:
 
 if TYPE_CHECKING:
     from PogoOCR.images import ScreenshotClass
-    from PogoOCR.providers.interface import IReponse
+    from PogoOCR.providers.interface import IResponse
     from typing_extensions import Self
 
 URL = str
@@ -168,6 +168,6 @@ class Screenshot:
 
 
 class IView:
-    def __init__(self, response: "IReponse") -> None:
+    def __init__(self, response: "IResponse") -> None:
         self._response = response
         self.language = self._response.request.language

@@ -23,7 +23,7 @@ class IRequest:
 
 
 @dataclass
-class IReponse:
+class IResponse:
     request: IRequest
 
     @property
@@ -45,7 +45,7 @@ class IReponse:
 
 class IProvider:
     @abstractmethod
-    def detect_text(self, request: IRequest) -> IReponse:
+    def detect_text(self, request: IRequest) -> IResponse:
         raise NotImplementedError
 
     def open_request(
