@@ -2,6 +2,7 @@
 [![PyPi version](https://badgen.net/pypi/v/PogoOCR/)](https://pypi.com/project/PogoOCR)
 [![Maintenance](https://img.shields.io/static/v1?label=Maintained?&message=yes&color=success&style=flat)](#)
 [![wakatime](https://wakatime.com/badge/github/TrainerDex/PogoOCR.svg?style=flat)](https://wakatime.com/badge/github/TrainerDex/PogoOCR)
+[![codecov](https://codecov.io/gh/TrainerDex/PogoOCR/branch/develop/graph/badge.svg?token=LABKE6I5RL)](https://codecov.io/gh/TrainerDex/PogoOCR)
 
 A Python tool for running OCR on Pokémon Screenshots using Google Cloud Vision
 
