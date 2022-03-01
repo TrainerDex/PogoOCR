@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-google-cloud-vision = "==1.0.0"
+google-cloud-vision = "==2.7.0"
 python-dateutil = "*"
 requests = "*"
 Babel = ">=2.0.0"
