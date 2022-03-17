@@ -1,21 +1,51 @@
-# Made to match Redbot since this project uses redbot
-# Probably don't need all of these excludes
-
 [tool.black]
-    line-length = 99
-    target-version = ['py38']
-    include = '\.py$'
-    exclude = '''
-    /(
-          \.eggs
-        | \.git
-        | \.hg
-        | \.mypy_cache
-        | \.tox
-        | \.venv
-        | _build
-        | buck-out
-        | build
-        | dist
-    )/
-    '''
+line-length = 99
+target-version = ['py310']
+
+[tool.poetry]
+name = "PogoOCR"
+version = "0.4.0-beta"
+description = "A Python tool for running OCR on Pokemon Go Screenshots"
+readme = "README.md"
+authors = ["Jay Turner <jay@trainerdex.app>"]
+license = "GPL-3.0-or-later"
+repository = "https://github.com/TrainerDex/PogoOCR"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+packages = [
+    { include = "PogoOCR" }
+]
+include = [
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md",
+    "PogoOCR/pattern_lookups.json",
+]
+
+[tool.poetry.dependencies]
+python = ">=3.8.2,<3.11"
+google-cloud-vision = "2.6.3"
+python-dateutil = "^2.8.2"
+requests = "^2.27.1"
+babel = ">=2.0.0"
+pillow = ">=8.3.2"
+aiohttp = { version = "^3.8.1", optional = true }
+colour = "^0.1.5"
+colormath = "^3.0.0"
+numpy = ">=1.22.0"
+
+[tool.poetry.extras]
+aiohttp = ["aiohttp"]
+
+[tool.poetry.dev-dependencies]
+black = "^22.1.0"
+flake8 = "^4.0.1"
+pytest = "^7.0.1"
+pytest-cov = "^3.0.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
