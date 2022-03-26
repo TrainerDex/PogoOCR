@@ -4,7 +4,7 @@ target-version = ['py310']
 
 [tool.poetry]
 name = "PogoOCR"
-version = "0.4.0-beta"
+version = "0.4.0b1"
 description = "A Python tool for running OCR on Pokemon Go Screenshots"
 readme = "README.md"
 authors = ["Jay Turner <jay@trainerdex.app>"]
@@ -27,7 +27,7 @@ include = [
 
 [tool.poetry.dependencies]
 python = ">=3.8.2,<3.11"
-google-cloud-vision = "2.6.3"
+google-cloud-vision = ">=2.7.1,<3.0.0"
 python-dateutil = "^2.8.2"
 requests = "^2.27.1"
 babel = ">=2.0.0"
