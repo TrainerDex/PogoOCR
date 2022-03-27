@@ -4,7 +4,7 @@ import os
 import PogoOCR
 import pytest
 from google.oauth2 import service_account
-from PogoOCR.constants import Factions
+from PogoOCR.constants import VALOR
 from PogoOCR.dataclasses import ActivityViewData
 from PogoOCR.providers import Providers
 from typing import TYPE_CHECKING
@@ -136,7 +136,7 @@ options = [
         "en",
         "https://cdn.discordapp.com/attachments/543105822629167104/709926063282847834/Screenshot_20200513-013228.jpg",
         ActivityViewData(
-            faction=Factions.VALOR,
+            faction=VALOR,
             username="JayTurnrTDX",
             travel_km=decimal.Decimal("6163.7"),
             capture_total=55718,
@@ -162,7 +162,7 @@ options = [
         "https://cdn.discordapp.com/attachments/329751396222238722/711468207667544095/Screenshot_20200517-074014.png",
         (
             ActivityViewData(
-                faction=Factions.VALOR,
+                faction=VALOR,
                 username="nerraw1986",
                 travel_km=decimal.Decimal("1325.7"),
                 capture_total=4721,
@@ -170,7 +170,7 @@ options = [
                 total_xp=5421143,
             ),
             ActivityViewData(
-                faction=Factions.VALOR,
+                faction=VALOR,
                 username="nerraw1986",
                 travel_km=decimal.Decimal("1325.7"),
                 capture_total=4721,
@@ -196,7 +196,7 @@ options = [
         "english with non-english numerics",
         "https://cdn.discordapp.com/attachments/370708840850653184/751596341985148958/image0.png",
         ActivityViewData(
-            faction=Factions.VALOR,
+            faction=VALOR,
             travel_km=decimal.Decimal("1127.1"),
             capture_total=21543,
             pokestops_visited=10457,
@@ -207,7 +207,7 @@ options = [
         "english with but missing travel_km",
         "https://cdn.discordapp.com/attachments/370708840850653184/752889030680510494/Screenshot_20200908-145202.jpg",
         ActivityViewData(
-            faction=Factions.VALOR,
+            faction=VALOR,
             capture_total=60062,
             pokestops_visited=44890,
             total_xp=75751423,
