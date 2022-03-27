@@ -1,13 +1,16 @@
 import math
 import re
 from colour import Color
+from dataclasses import asdict
 from decimal import Decimal
-from typing import Tuple, Union
+from typing import List, Tuple, Union
 
 from PogoOCR.constants import Factions
 from PogoOCR.dataclasses import ActivityViewData, Faction
 from PogoOCR.images.interface import IView
 from PogoOCR.utils import calculate_colour_distance, rgb2color
+
+faction_list: List[Faction] = asdict(Factions).values()
 
 
 class ActivityView(IView):
@@ -22,21 +25,19 @@ class ActivityView(IView):
         left_pixel_location: Tuple[int, int] = (2, math.ceil(image.height / 2))
         left_pixel_color: Color = rgb2color(*image.getpixel(left_pixel_location))
         left_best_guess: Faction = sorted(
-            Factions,
-            key=lambda faction: calculate_colour_distance(faction.value.color, left_pixel_color),
+            faction_list,
+            key=lambda faction: calculate_colour_distance(faction.color, left_pixel_color),
         )[0]
-        left_distance: float = calculate_colour_distance(
-            left_pixel_color, left_best_guess.value.color
-        )
+        left_distance: float = calculate_colour_distance(left_pixel_color, left_best_guess.color)
 
         right_pixel_location: Tuple[int, int] = (image.width - 2, math.ceil(image.height / 2))
         right_pixel_color: Color = rgb2color(*image.getpixel(right_pixel_location))
         right_best_guess: Faction = sorted(
-            Factions,
-            key=lambda faction: calculate_colour_distance(faction.value.color, right_pixel_color),
+            faction_list,
+            key=lambda faction: calculate_colour_distance(faction.color, right_pixel_color),
         )[0]
         right_distance: float = calculate_colour_distance(
-            right_pixel_color, right_best_guess.value.color
+            right_pixel_color, right_best_guess.color
         )
 
         distance, best_guess = sorted(
