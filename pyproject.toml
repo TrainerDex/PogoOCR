@@ -4,7 +4,7 @@ target-version = ['py310']
 
 [tool.poetry]
 name = "PogoOCR"
-version = "0.4.0b1"
+version = "0.4.0b2"
 description = "A Python tool for running OCR on Pokemon Go Screenshots"
 readme = "README.md"
 authors = ["Jay Turner <jay@trainerdex.app>"]
