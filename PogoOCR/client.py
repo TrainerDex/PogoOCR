@@ -1,8 +1,9 @@
 from babel import Locale
+
 from PogoOCR.constants import Locales
 from PogoOCR.images import Screenshot
 from PogoOCR.providers import Providers
-from PogoOCR.providers.interface import IProvider, IResponse, IRequest
+from PogoOCR.providers.interface import IProvider, IRequest, IResponse
 
 
 class OCRClient:

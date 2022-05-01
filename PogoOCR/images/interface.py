@@ -1,9 +1,9 @@
 import hashlib
-import requests
 from io import BytesIO
-from PIL import Image
 from typing import TYPE_CHECKING, Any, Coroutine, Literal, Optional, Union, overload
 
+import requests
+from PIL import Image
 
 try:
     import aiohttp
@@ -11,9 +11,10 @@ except ImportError:
     aiohttp = None
 
 if TYPE_CHECKING:
+    from typing_extensions import Self
+
     from PogoOCR.images import ScreenshotClass
     from PogoOCR.providers.interface import IResponse
-    from typing_extensions import Self
 
 URL = str
 

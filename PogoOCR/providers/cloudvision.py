@@ -1,26 +1,24 @@
-from io import BytesIO
 import logging
-import pytz
-from babel import Locale
 from dataclasses import dataclass
 from datetime import datetime
+from io import BytesIO
 from typing import Sequence, Union
 from uuid import UUID, uuid4
 
+import pytz
+from babel import Locale
 from google.auth.exceptions import GoogleAuthError
 from google.cloud import vision
 from google.oauth2 import service_account
+
 from PogoOCR.constants import Locales
-
-from PogoOCR.images import Screenshot
-
 from PogoOCR.exceptions import (
     CloudVisionAuthenticationException,
     CloudVisionTextAnnotationException,
     OCRAttemptsExhausted,
 )
-from PogoOCR.providers.interface import IProvider, IResponse, IRequest
-
+from PogoOCR.images import Screenshot
+from PogoOCR.providers.interface import IProvider, IRequest, IResponse
 
 logger: logging.Logger = logging.getLogger(__name__)
 

@@ -1,8 +1,9 @@
 import math
 import re
-from colour import Color
 from decimal import Decimal
 from typing import Tuple, Union
+
+from colour import Color
 
 from PogoOCR.constants import __ALL_FACTIONS__
 from PogoOCR.dataclasses import ActivityViewData, Faction

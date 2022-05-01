@@ -49,6 +49,7 @@ black = "^22.1.0"
 flake8 = "^4.0.1"
 pytest = "^7.0.1"
 pytest-cov = "^3.0.0"
+isort = {version = "^5.10.1", extras = ["black"]}
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

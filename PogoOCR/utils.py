@@ -1,8 +1,9 @@
 from typing import Union
-from colour import Color
-from colormath.color_objects import sRGBColor, LabColor
+
 from colormath.color_conversions import convert_color
 from colormath.color_diff import delta_e_cie2000
+from colormath.color_objects import LabColor, sRGBColor
+from colour import Color
 
 
 def calculate_colour_distance(c1: Color, c2: Color) -> float:

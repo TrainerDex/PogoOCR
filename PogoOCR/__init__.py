@@ -15,16 +15,15 @@ __licence__ = "GNU GENERAL PUBLIC LICENSE 3.0"
 __copyright__ = "2021 TrainerDex"
 __version__ = "0.4.0b2"
 
-from .images import Screenshot  # noqa: F401
 from .client import OCRClient  # noqa: F401
 from .constants import (  # noqa: F401
     __ALL_FACTIONS__,
     __FACTION_ID_MAPPING__,
+    INSTINCT,
+    MYSTIC,
+    TEAMLESS,
+    VALOR,
     Levels,
     Locales,
-    TEAMLESS,
-    MYSTIC,
-    VALOR,
-    INSTINCT,
 )
-from .images import ScreenshotClass  # noqa: F401
+from .images import Screenshot, ScreenshotClass  # noqa: F401

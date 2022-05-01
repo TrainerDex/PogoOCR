@@ -6,7 +6,6 @@ from babel import Locale
 from PogoOCR.dataclasses import Faction
 from PogoOCR.utils import rgb2color
 
-
 TEAMLESS = Faction(0, "teamless", rgb2color(0.0, 231.0, 181.0))
 MYSTIC = Faction(1, "mystic", rgb2color(6.5, 118.8, 241.6))
 VALOR = Faction(2, "valor", rgb2color(255.0, 4.0, 42.0))

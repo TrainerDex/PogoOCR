@@ -1,8 +1,9 @@
-import Levenshtein
+from dataclasses import dataclass, field
 from decimal import Decimal
 from typing import TYPE_CHECKING, Optional
+
+import Levenshtein
 from colour import Color
-from dataclasses import dataclass, field
 
 if TYPE_CHECKING:
     from PogoOCR.providers.interface import IResponse

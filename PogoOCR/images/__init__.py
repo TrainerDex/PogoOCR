@@ -1,4 +1,5 @@
 from enum import Enum
+
 from PogoOCR.images.actitvity_view import ActivityView
 from PogoOCR.images.interface import Screenshot  # noqa: F401
 

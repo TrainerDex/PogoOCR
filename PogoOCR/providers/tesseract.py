@@ -1,20 +1,19 @@
 import logging
-from babel import Locale
-import pytz
 from dataclasses import dataclass
 from datetime import datetime
 from typing import Union
 from uuid import UUID, uuid4
 
-import pytesseract
 import iso639
+import pytesseract
+import pytz
+from babel import Locale
 from PIL import Image
 
 from PogoOCR.constants import Locales
-from PogoOCR.images import Screenshot
 from PogoOCR.exceptions import OCRAttemptsExhausted
-from PogoOCR.providers.interface import IProvider, IResponse, IRequest
-
+from PogoOCR.images import Screenshot
+from PogoOCR.providers.interface import IProvider, IRequest, IResponse
 
 logger: logging.Logger = logging.getLogger(__name__)
 

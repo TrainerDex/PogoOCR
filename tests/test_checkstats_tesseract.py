@@ -1,9 +1,9 @@
 import decimal
 import logging
-import pytest
+from dataclasses import fields
 from typing import TYPE_CHECKING
 
-from dataclasses import fields
+import pytest
 
 import PogoOCR
 from PogoOCR.constants import VALOR
