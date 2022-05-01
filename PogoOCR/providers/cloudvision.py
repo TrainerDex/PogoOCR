@@ -32,14 +32,14 @@ class CloudVisionRequest(IRequest):
 
     def __init__(
         self,
-        client: "CloudVisionClient",
+        client: vision.ImageAnnotatorClient,
         screenshot: Screenshot,
         language: Language = Language.ENGLISH,
     ) -> None:
         self.uuid: UUID = uuid4()
         self.language = language
         self.initalized_at: datetime = datetime.now(pytz.UTC)
-        self._client: "CloudVisionClient" = client
+        self._client: vision.ImageAnnotatorClient = client
         self._screenshot: Screenshot = screenshot
 
     @property
