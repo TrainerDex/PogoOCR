@@ -1,6 +1,3 @@
-from google.auth.exceptions import GoogleAuthError
-
-
 class PogoOCRException(Exception):
     pass
 
@@ -11,7 +8,7 @@ class CloudVisionClientException(PogoOCRException):
     pass
 
 
-class CloudVisionAuthenticationException(CloudVisionClientException, GoogleAuthError):
+class CloudVisionAuthenticationException(CloudVisionClientException):
     """Raised when Cloud Vision Client has failed to authenticate"""
 
     pass
