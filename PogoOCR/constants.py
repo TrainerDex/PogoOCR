@@ -18,7 +18,7 @@ Levels: Sequence[int] = range(1, 51)
 
 
 class Language(Enum):
-    ENGLISH = "en"
+    ENGLISH = "eng"
     FRENCH = "fr"
     GERMAN = "de"
     ITALIAN = "it"

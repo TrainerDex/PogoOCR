@@ -1,13 +1,15 @@
 import decimal
 import logging
 import os
-import PogoOCR
+from typing import TYPE_CHECKING
+
 import pytest
 from google.oauth2 import service_account
+
+import PogoOCR
 from PogoOCR.constants import VALOR
 from PogoOCR.dataclasses import ActivityViewData
 from PogoOCR.providers import Providers
-from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from PogoOCR.providers.cloudvision import CloudVisionRequest
