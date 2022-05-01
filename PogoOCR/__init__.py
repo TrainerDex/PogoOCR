@@ -21,7 +21,7 @@ from .constants import (  # noqa: F401
     __ALL_FACTIONS__,
     __FACTION_ID_MAPPING__,
     Levels,
-    Language,
+    Locales,
     TEAMLESS,
     MYSTIC,
     VALOR,

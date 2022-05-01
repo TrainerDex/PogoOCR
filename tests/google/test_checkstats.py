@@ -30,7 +30,7 @@ def func(url):
         klass=PogoOCR.ScreenshotClass.ACTIVITY_VIEW,
     )
 
-    request: CloudVisionRequest = client.open_request(screenshot, PogoOCR.Language.ENGLISH)
+    request: CloudVisionRequest = client.open_request(screenshot, PogoOCR.Locales.ENGLISH)
 
     view_data: ActivityViewData = client.process_ocr(request)
 

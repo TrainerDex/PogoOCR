@@ -1,5 +1,7 @@
-from enum import Enum
+from dataclasses import dataclass
 from typing import Sequence
+
+from babel import Locale
 
 from PogoOCR.dataclasses import Faction
 from PogoOCR.utils import rgb2color
@@ -17,15 +19,16 @@ __FACTION_ID_MAPPING__ = {faction.id: faction for faction in __ALL_FACTIONS__}
 Levels: Sequence[int] = range(1, 51)
 
 
-class Language(Enum):
-    ENGLISH = "eng"
-    FRENCH = "fr"
-    GERMAN = "de"
-    ITALIAN = "it"
-    JAPANESE = "ja"
-    KOREAN = "ko"
-    RUSSIAN = "ru"
-    SPANISH = "es"
-    THAI = "th"
-    CHINESE_TRADITIONAL = "zh_hant"
-    BRAZILIAN_PORTUGUESE = "pt_br"
+@dataclass(frozen=True)
+class Locales:
+    ENGLISH = Locale("en")
+    FRENCH = Locale("fr")
+    GERMAN = Locale("de")
+    ITALIAN = Locale("it")
+    JAPANESE = Locale("ja")
+    KOREAN = Locale("ko")
+    RUSSIAN = Locale("ru")
+    SPANISH = Locale("es")
+    THAI = Locale("th")
+    CHINESE_TRADITIONAL = Locale("zh", "Hant")
+    BRAZILIAN_PORTUGUESE = Locale("pt", "BR")

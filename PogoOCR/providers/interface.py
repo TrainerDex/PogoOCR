@@ -4,7 +4,9 @@ from datetime import datetime
 from typing import TYPE_CHECKING
 from uuid import UUID, uuid4
 
-from PogoOCR.constants import Language
+from babel import Locale
+
+from PogoOCR.constants import Locales
 
 if TYPE_CHECKING:
     from PogoOCR.images import Screenshot
@@ -12,7 +14,7 @@ if TYPE_CHECKING:
 
 class IRequest:
     uuid: UUID = uuid4()
-    language: "Language" = Language.ENGLISH
+    locale: Locale = Locales.ENGLISH
     initalized_at: datetime = None
     _client: "IProvider" = None
     _screenshot: "Screenshot" = None
@@ -51,6 +53,6 @@ class IProvider:
     def open_request(
         self,
         screenshot: "Screenshot",
-        language: "Language" = Language.ENGLISH,
+        locale: Locale = Locales.ENGLISH,
     ) -> "IRequest":
         raise NotImplementedError

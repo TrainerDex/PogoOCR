@@ -1,6 +1,7 @@
 from io import BytesIO
 import logging
 import pytz
+from babel import Locale
 from dataclasses import dataclass
 from datetime import datetime
 from typing import Sequence, Union
@@ -9,7 +10,7 @@ from uuid import UUID, uuid4
 from google.auth.exceptions import GoogleAuthError
 from google.cloud import vision
 from google.oauth2 import service_account
-from PogoOCR.constants import Language
+from PogoOCR.constants import Locales
 
 from PogoOCR.images import Screenshot
 
@@ -34,10 +35,10 @@ class CloudVisionRequest(IRequest):
         self,
         client: vision.ImageAnnotatorClient,
         screenshot: Screenshot,
-        language: Language = Language.ENGLISH,
+        locale: Locale = Locales.ENGLISH,
     ) -> None:
         self.uuid: UUID = uuid4()
-        self.language = language
+        self.locale = locale
         self.initalized_at: datetime = datetime.now(pytz.UTC)
         self._client: vision.ImageAnnotatorClient = client
         self._screenshot: Screenshot = screenshot
@@ -138,8 +139,8 @@ class CloudVisionClient(IProvider):
     def open_request(
         self,
         screenshot: Screenshot,
-        language: Language = Language.ENGLISH,
+        locale: Locale = Locales.ENGLISH,
     ) -> "CloudVisionRequest":
-        request = CloudVisionRequest(client=self.client, screenshot=screenshot)
+        request = CloudVisionRequest(client=self.client, screenshot=screenshot, locale=locale)
         logger.debug(f"Created Cloud Vision Request: {request}")
         return request

@@ -170,4 +170,4 @@ class Screenshot:
 class IView:
     def __init__(self, response: "IResponse") -> None:
         self._response = response
-        self.language = self._response.request.language
+        self.language = self._response.request.locale

@@ -1,4 +1,5 @@
 import logging
+from babel import Locale
 import pytz
 from dataclasses import dataclass
 from datetime import datetime
@@ -6,13 +7,11 @@ from typing import Union
 from uuid import UUID, uuid4
 
 import pytesseract
+import iso639
 
-from PogoOCR.constants import Language
+from PogoOCR.constants import Locales
 from PogoOCR.images import Screenshot
-from PogoOCR.exceptions import (
-    CloudVisionTextAnnotationException,
-    OCRAttemptsExhausted,
-)
+from PogoOCR.exceptions import OCRAttemptsExhausted
 from PogoOCR.providers.interface import IProvider, IResponse, IRequest
 
 
@@ -28,10 +27,10 @@ class TesseractRequest(IRequest):
     def __init__(
         self,
         screenshot: Screenshot,
-        language: Language = Language.ENGLISH,
+        locale: Locale = Locales.ENGLISH,
     ) -> None:
         self.uuid: UUID = uuid4()
-        self.language = language
+        self.locale = locale
         self.initalized_at: datetime = datetime.now(pytz.UTC)
         self._screenshot: Screenshot = screenshot
 
@@ -78,6 +77,9 @@ class TesseractReponse(IResponse):
 
 
 class TesseractClient(IProvider):
+    def _resolve_language(self, locale: Locale) -> str:
+        return iso639.to_iso639_2(locale.language)
+
     def detect_text(self, request: "TesseractRequest") -> TesseractReponse:
         logger.info(
             "Requesting TEXT_DETECTION from Google Cloud API. This will cost us 0.0015 USD."
@@ -88,7 +90,7 @@ class TesseractClient(IProvider):
                 f"Starting attempt #{request.attempts_made} of {request.attempts_allowed} for {request}"
             )
             annotation: str = pytesseract.image_to_string(
-                request.screenshot.image, request.language.value
+                request.screenshot.image, self._resolve_language(request.locale)
             )
             if not annotation:
                 logger.debug(
@@ -106,8 +108,8 @@ class TesseractClient(IProvider):
     def open_request(
         self,
         screenshot: Screenshot,
-        language: Language = Language.ENGLISH,
+        locale: Locale = Locales.ENGLISH,
     ) -> "TesseractRequest":
-        request = TesseractRequest(screenshot=screenshot)
+        request = TesseractRequest(screenshot=screenshot, locale=locale)
         logger.debug(f"Created Cloud Vision Request: {request}")
         return request
