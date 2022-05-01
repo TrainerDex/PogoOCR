@@ -72,7 +72,7 @@ class ActivityView(IView):
 
     def _parse_travel_km(self) -> Union[Decimal, None]:
         match: re.Match = re.search(
-            r"D[il]stance\s*Wa[il]ked:?\s*(?P<whole>(?:\d{0,3}[,\.\s]?)+)[,\.\s](?P<decimal>\d{1,2})\s*km",
+            r"D[il]stance\s*Wa[il]ked:?[cx\s]*(?P<whole>(?:\d{0,3}[,\.\s]?)+)[,\.\s](?P<decimal>\d{1,2})\s*km",
             self._response.content,
             re.IGNORECASE,
         )
@@ -90,7 +90,7 @@ class ActivityView(IView):
 
     def _parse_capture_total(self) -> Union[int, None]:
         match: re.Match = re.search(
-            r"Pok[eé]mon\s*Caught:?\s*(?P<total>(?:\d{0,3}[,\.\s]?)+)",
+            r"Pok[eé]mon\s*Caught:?[cx\s]*(?P<total>(?:\d{0,3}[,\.\s]?)+)",
             self._response.content,
             re.IGNORECASE,
         )
@@ -107,7 +107,7 @@ class ActivityView(IView):
 
     def _parse_pokestops_visited(self) -> Union[int, None]:
         match: re.Match = re.search(
-            r"Pok[eé]Stops\s*V[il]s[il]ted:?\s*(?P<total>(?:\d{0,3}[,\.\s]?)+)",
+            r"Pok[eé]Stops\s*V[il]s[il]ted:?[cx\s]*(?P<total>(?:\d{0,3}[,\.\s]?)+)",
             self._response.content,
             re.IGNORECASE,
         )
@@ -124,7 +124,7 @@ class ActivityView(IView):
 
     def _parse_total_xp(self) -> Union[int, None]:
         match: re.Match = re.search(
-            r"Tota[il]\s*XP:?\s*(?P<total>(?:\d{0,3}[,\.\s]?)+)",
+            r"Tota[il]\s*XP:?[cx\s]*(?P<total>(?:\d{0,3}[,\.\s]?)+)",
             self._response.content,
             re.IGNORECASE,
         )
