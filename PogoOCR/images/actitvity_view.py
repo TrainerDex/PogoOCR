@@ -47,7 +47,9 @@ class ActivityView(IView):
     def _look_for_username_and_buddy(self) -> Tuple[Union[str, None], Union[str, None]]:
         # TODO: Localization
         match: re.Match = re.search(
-            r"(?P<username>[A-Za-z0-9]+)\n\&\s?(?P<buddy>.+)", self._response.content
+            r"(?P<username>[A-Za-z0-9]+)\n\&\s?(?P<buddy>.+)",
+            self._response.content,
+            re.IGNORECASE,
         )
         if match is None:
             return None, None
@@ -70,8 +72,9 @@ class ActivityView(IView):
 
     def _parse_travel_km(self) -> Union[Decimal, None]:
         match: re.Match = re.search(
-            r"Distance\s*Walked:?.*(?P<whole>(?:\d{0,3}[,\.\s]?)+)[,\.\s](?P<decimal>\d{1,2})\s*km",
+            r"D[il]stance\s*Wa[il]ked:?\s*(?P<whole>(?:\d{0,3}[,\.\s]?)+)[,\.\s](?P<decimal>\d{1,2})\s*km",
             self._response.content,
+            re.IGNORECASE,
         )
         if match is None:
             return None
@@ -87,7 +90,9 @@ class ActivityView(IView):
 
     def _parse_capture_total(self) -> Union[int, None]:
         match: re.Match = re.search(
-            r"Pok[eé]mon\s*Caught:?.*(?P<total>(?:\d{0,3}[,\.\s]?)+)", self._response.content
+            r"Pok[eé]mon\s*Caught:?\s*(?P<total>(?:\d{0,3}[,\.\s]?)+)",
+            self._response.content,
+            re.IGNORECASE,
         )
         if match is None:
             return None
@@ -102,7 +107,9 @@ class ActivityView(IView):
 
     def _parse_pokestops_visited(self) -> Union[int, None]:
         match: re.Match = re.search(
-            r"Pok[eé]Stops\s*Visited:?.*(?P<total>(?:\d{0,3}[,\.\s]?)+)", self._response.content
+            r"Pok[eé]Stops\s*V[il]s[il]ted:?\s*(?P<total>(?:\d{0,3}[,\.\s]?)+)",
+            self._response.content,
+            re.IGNORECASE,
         )
         if match is None:
             return None
@@ -117,7 +124,9 @@ class ActivityView(IView):
 
     def _parse_total_xp(self) -> Union[int, None]:
         match: re.Match = re.search(
-            r"Total\s*XP:?.*(?P<total>(?:\d{0,3}[,\.\s]?)+)", self._response.content
+            r"Tota[il]\s*XP:?\s*(?P<total>(?:\d{0,3}[,\.\s]?)+)",
+            self._response.content,
+            re.IGNORECASE,
         )
         if match is None:
             return None
