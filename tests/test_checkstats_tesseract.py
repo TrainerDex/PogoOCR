@@ -162,8 +162,6 @@ options = [
             faction=VALOR,
             username="nerraw1986",
             travel_km=decimal.Decimal("1325.7"),
-            capture_total=4721,
-            total_xp=5421143,
         ),
     ),
     # (
