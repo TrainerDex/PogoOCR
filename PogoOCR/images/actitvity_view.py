@@ -70,7 +70,7 @@ class ActivityView(IView):
 
     def _parse_travel_km(self) -> Union[Decimal, None]:
         match: re.Match = re.search(
-            r"Distance\s*Walked:?\s*(?P<whole>(?:\d{0,3}[,\.\s]?)+)[,\.\s](?P<decimal>\d{1,2})\s*km",
+            r"Distance\s*Walked:?.*(?P<whole>(?:\d{0,3}[,\.\s]?)+)[,\.\s](?P<decimal>\d{1,2})\s*km",
             self._response.content,
         )
         if match is None:
@@ -82,12 +82,12 @@ class ActivityView(IView):
         except ValueError:
             return None
 
-        whole = re.sub("[^0-9]", "", whole)
-        return Decimal(f"{whole}.{decimal}")
+        if (whole := re.sub("[^0-9]", "", whole)) and decimal:
+            return Decimal(f"{whole}.{decimal}")
 
     def _parse_capture_total(self) -> Union[int, None]:
         match: re.Match = re.search(
-            r"Pok[eé]mon\s*Caught:?\s*(?P<total>(?:\d{0,3}[,\.\s]?)+)", self._response.content
+            r"Pok[eé]mon\s*Caught:?.*(?P<total>(?:\d{0,3}[,\.\s]?)+)", self._response.content
         )
         if match is None:
             return None
@@ -97,11 +97,12 @@ class ActivityView(IView):
         except ValueError:
             return None
 
-        return int(re.sub("[^0-9]", "", total))
+        if total := re.sub("[^0-9]", "", total):
+            return int(total)
 
     def _parse_pokestops_visited(self) -> Union[int, None]:
         match: re.Match = re.search(
-            r"Pok[eé]Stops\s*Visited:?\s*(?P<total>(?:\d{0,3}[,\.\s]?)+)", self._response.content
+            r"Pok[eé]Stops\s*Visited:?.*(?P<total>(?:\d{0,3}[,\.\s]?)+)", self._response.content
         )
         if match is None:
             return None
@@ -111,11 +112,12 @@ class ActivityView(IView):
         except ValueError:
             return None
 
-        return int(re.sub("[^0-9]", "", total))
+        if total := re.sub("[^0-9]", "", total):
+            return int(total)
 
     def _parse_total_xp(self) -> Union[int, None]:
         match: re.Match = re.search(
-            r"Total\s*XP:?\s*(?P<total>(?:\d{0,3}[,\.\s]?)+)", self._response.content
+            r"Total\s*XP:?.*(?P<total>(?:\d{0,3}[,\.\s]?)+)", self._response.content
         )
         if match is None:
             return None
@@ -125,7 +127,8 @@ class ActivityView(IView):
         except ValueError:
             return None
 
-        return int(re.sub("[^0-9]", "", total))
+        if total := re.sub("[^0-9]", "", total):
+            return int(total)
 
     def _parse_activity_segment(
         self,
