@@ -8,6 +8,7 @@ from uuid import UUID, uuid4
 
 import pytesseract
 import iso639
+from PIL import Image
 
 from PogoOCR.constants import Locales
 from PogoOCR.images import Screenshot
@@ -80,6 +81,10 @@ class TesseractClient(IProvider):
     def _resolve_language(self, locale: Locale) -> str:
         return iso639.to_iso639_2(locale.language)
 
+    def _modify_image(self, screenshot: Screenshot) -> Image:
+        image = screenshot.image
+        return image.resize((image.width * 3, image.height * 3))
+
     def detect_text(self, request: "TesseractRequest") -> TesseractReponse:
         logger.info(
             "Requesting TEXT_DETECTION from Google Cloud API. This will cost us 0.0015 USD."
@@ -90,7 +95,7 @@ class TesseractClient(IProvider):
                 f"Starting attempt #{request.attempts_made} of {request.attempts_allowed} for {request}"
             )
             annotation: str = pytesseract.image_to_string(
-                request.screenshot.image, self._resolve_language(request.locale)
+                self._modify_image(request.screenshot), self._resolve_language(request.locale)
             )
             if not annotation:
                 logger.debug(
