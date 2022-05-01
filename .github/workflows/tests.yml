@@ -90,6 +90,11 @@ jobs:
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: poetry install --no-interaction --no-root
       #----------------------------------------------
+      # install tesseract
+      #----------------------------------------------
+      - name: Install dependencies
+        run: sudo apt install tesseract-ocr tesseract-ocr-all -y
+      #----------------------------------------------
       # install your root project, if required
       #----------------------------------------------
       - name: Install library
