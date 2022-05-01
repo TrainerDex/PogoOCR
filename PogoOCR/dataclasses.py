@@ -1,3 +1,4 @@
+import Levenshtein
 from decimal import Decimal
 from typing import TYPE_CHECKING, Optional
 from colour import Color
@@ -34,3 +35,8 @@ class ActivityViewData:
     capture_total: Optional[int] = None
     pokestops_visited: Optional[int] = None
     total_xp: Optional[int] = None
+
+    def compare_username(self, username: str) -> bool:
+        if self.username is None:
+            return False
+        return Levenshtein.ratio(self.username.casefold(), username.casefold()) > 0.8

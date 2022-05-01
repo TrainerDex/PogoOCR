@@ -204,11 +204,16 @@ options = [
 
 
 @pytest.mark.parametrize("test_name,input,expected", options)
-def test_answer(test_name, input, expected):
+def test_answer(test_name: str, input: str, expected: ActivityViewData):
     res = func(input)
     content = res._response.content
     # Set fields on res to None if they're None on expected
     for field in fields(expected):
         if getattr(expected, field.name, None) is None:
             setattr(res, field.name, None)
+
+    if expected.username is not None:
+        assert expected.compare_username(res.username)
+        res.username, expected.username = None, None
+
     assert res == expected, f"{test_name}: {content}"

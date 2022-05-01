@@ -39,6 +39,7 @@ numpy = ">=1.22.0"
 pytesseract = "^0.3.9"
 pytz = "^2022.1"
 iso639 = "^0.1.4"
+python-Levenshtein = "^0.12.2"
 
 [tool.poetry.extras]
 google = ["google-cloud-vision"]
