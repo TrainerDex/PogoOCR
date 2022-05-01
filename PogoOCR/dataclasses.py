@@ -2,7 +2,7 @@ import Levenshtein
 from decimal import Decimal
 from typing import TYPE_CHECKING, Optional
 from colour import Color
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 if TYPE_CHECKING:
     from PogoOCR.providers.interface import IResponse
@@ -25,9 +25,9 @@ class Faction:
 
 @dataclass
 class ActivityViewData:
-    _response: "IResponse" = None
+    _response: "IResponse" = field(default=None, compare=False)
     faction: Optional[Faction] = None
-    faction_confidence: Optional[float] = None
+    faction_confidence: Optional[float] = field(default=None, compare=False)
     username: Optional[str] = None
     buddy: Optional[str] = None
     level: Optional[int] = None
