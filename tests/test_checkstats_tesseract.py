@@ -206,9 +206,9 @@ options = [
 @pytest.mark.parametrize("test_name,input,expected", options)
 def test_answer(test_name, input, expected):
     res = func(input)
-    logger.debug(res._response.content)
+    content = res._response.content
     # Set fields on res to None if they're None on expected
     for field in fields(expected):
         if getattr(expected, field.name, None) is None:
             setattr(res, field.name, None)
-    assert res == expected
+    assert res == expected, f"{test_name}: {content}"
